@@ -448,6 +448,10 @@ ${favs.map((f,i)=>`${i+1}. ${f.name}${f.ml?` — ${f.ml} мл`:""}`).join("\n")}
 
   window.location.href=`https://t.me/bebehihihi?text=${text}`;
   bookBack.style.display="none";
+localStorage.removeItem(LS_KEY);
+  updateFavCount();
+  favList.innerHTML = "";
+  giftBlock.style.display = "none";
 };
 
 // кнопки и фильтры
