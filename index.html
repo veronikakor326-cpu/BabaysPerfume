@@ -210,10 +210,80 @@ main.container{padding:16px}
 
 <script>
 const catalog = [
-  {"name":"Amouage — Interlude Man","gender":"Мужской","img":"https://t.me/babaysperfume/200","notes":{"top":"бергамот, орегано","middle":"амбра, опопонакс","base":"восточные смолы, кожа"},"hit":true}, 
+  {"name":"Amouage — Interlude Man","gender":"Мужской","img":"https://t.me/babaysperfume/200","notes":{"top":"бергамот, орегано","middle":"амбра, опопонакс","base":"восточные смолы, кожа"},"hit":true},
   {"name":"Bvlgari — Tygar","gender":"Мужской","img":"https://i.imgur.com/fuvcd5m.jpeg","notes":{"top":"грейпфрут","middle":"имбирь, Амбретта","base":"Ambroxan, мускус, ветивер, пачули"},"new":true},
-  {"name":"Chanel — Bleu De Chanel","gender":"Мужской","img":"https://t.me/babaysperfume/195","notes":{"top":"грейпфрут","middle":"имбирь, жасмин","base":"кедр, сандал"}}, 
-  {"name":"Creed — Absolu Aventus","gender":"Мужской","img":"https://t.me/babaysperfume/219","notes":{"top":"ананас, бергамот","middle":"береза, жасмин","base":"мускус, дубовый мох"},"hit":true,"new":true}
+  {"name":"Chanel — Bleu De Chanel","gender":"Мужской","img":"https://t.me/babaysperfume/195","notes":{"top":"грейпфрут","middle":"имбирь, жасмин","base":"кедр, сандал"}},
+  {"name":"Creed — Absolu Aventus","gender":"Мужской","img":"https://t.me/babaysperfume/219","notes":{"top":"ананас, бергамот","middle":"береза, жасмин","base":"мускус, дубовый мох"},"hit":true,"new":true},
+  {"name":"Creed — Aventus","gender":"Мужской","img":"https://t.me/babaysperfume/205","notes":{"top":"ананас, черная смородина","middle":"береза, жасмин","base":"мох, ваниль"}},
+  {"name":"Creed — Aventus Black","gender":"Мужской","img":"https://t.me/babaysperfume/176","notes":{"top":"цитрус, розмарин","middle":"кожа, пачули","base":"мускус, амбра"}},
+  {"name":"Creed — Viking","gender":"Мужской","img":"https://t.me/babaysperfume/208","notes":{"top":"бергамот, цитрус","middle":"лаванда, герань","base":"кедр, амбра"}},
+  {"name":"Dior — Sauvage","gender":"Мужской","img":"https://t.me/babaysperfume/201","notes":{"top":"бергамот, перец","middle":"сичуанский перец, лаванда","base":"амброксан, ваниль"}},
+  {"name":"Dior — Sauvage Elixir","gender":"Мужской","img":"https://t.me/babaysperfume/160","notes":{"top":"грейпфрут, корица","middle":"лаванда, мускус","base":"сандал, амбра"}},
+  {"name":"Givenchy — Givenchy Pour Homme","gender":"Мужской","img":"https://t.me/babaysperfume/181","notes":{"top":"лимон, бергамот","middle":"лаванда, розмарин","base":"кедр, амбра"}},
+  {"name":"Amouage — Interlude Woman","gender":"Женский","img":"https://t.me/babaysperfume/229","notes":{"top":"бергамот, мандарин","middle":"жемчужный жасмин, роза","base":"сандал, амбра"}},
+  {"name":"Anna Sui — Fantasia","gender":"Женский","img":"https://t.me/babaysperfume/168","notes":{"top":"красные ягоды, апельсин","middle":"пачули, роза","base":"ваниль, мускус"}},
+  {"name":"Boadicea the Victorious — Heroine","gender":"Женский","img":"https://t.me/babaysperfume/186","notes":{"top":"грейпфрут, черная смородина","middle":"жасмин, пачули","base":"ваниль, амбра"}},
+  {"name":"By Kilian — Good Girl Gone Bad","gender":"Женский","img":"https://t.me/babaysperfume/202","notes":{"top":"гардения, жасмин","middle":"тубероза, иланг-иланг","base":"кашмирское дерево, бобы тонка"}},
+  {"name":"Chanel — Chance Eau de Parfum","gender":"Женский","img":"https://t.me/babaysperfume/170","notes":{"top":"цитрус, ананас","middle":"жасмин, ирис","base":"ваниль, пачули"}},
+  {"name":"Christian Dior — Addict","gender":"Женский","img":"https://t.me/babaysperfume/180","notes":{"top":"бергамот, мандарин","middle":"жасмин, апельсиновый цвет","base":"ваниль, сандал"}},
+  {"name":"Creed — Carmina","gender":"Женский","img":"https://t.me/babaysperfume/162","notes":{"top":"бергамот, апельсиновый цвет","middle":"жасмин, роза","base":"мускус, сандал"}},
+  {"name":"Givenchy — Ange ou Démon Le Secret","gender":"Женский","img":"https://t.me/babaysperfume/184","notes":{"top":"мандарин, бергамот","middle":"жасмин, ландыш","base":"кедр, амбра"}},
+  {"name":"Juliette Has A Gun — Not A Perfume","gender":"Женский","img":"https://t.me/babaysperfume/194","notes":{"top":"Cetalox (минимализм)","middle":"—","base":"—"}},
+  {"name":"Lanvin — Éclat d’Arpège","gender":"Женский","img":"https://t.me/babaysperfume/183","notes":{"top":"груша, зелёный чай","middle":"жасмин, ландыш","base":"кедр, мускус"}},
+  {"name":"Tiffany — Tiffany & Co","gender":"Женский","img":"https://t.me/babaysperfume/231","notes":{"top":"бергамот, грейпфрут","middle":"ирис, жасмин","base":"кедр, белый мускус"}},
+  {"name":"Trussardi — Trussardi Donna","gender":"Женский","img":"https://t.me/babaysperfume/188","notes":{"top":"бергамот, мандарин","middle":"роза, жасмин","base":"сандал, мускус"}},
+  {"name":"Versace — Bright Crystal","gender":"Женский","img":"https://t.me/babaysperfume/179","notes":{"top":"гранат, юзу","middle":"пион, магнолия","base":"мускус, амбра"}},
+  {"name":"Yves Saint Laurent — Libre","gender":"Женский","img":"https://t.me/babaysperfume/230","notes":{"top":"лаванда, мандарин","middle":"жасмин, апельсиновый цвет","base":"ваниль, кедр"}},
+  {"name":"Afnan — Tribute Blue","gender":"Унисекс","img":"https://t.me/babaysperfume/167","notes":{"top":"цитрус, морская свежесть","middle":"лаванда, жасмин","base":"мускус, амбра"}},
+  {"name":"Ajmal — Amber Wood","gender":"Унисекс","img":"https://t.me/babaysperfume/224","notes":{"top":"апельсин, специи","middle":"амбровые ноты, древесные акценты","base":"ваниль, кедр"}},
+  {"name":"Al-Rehab — Choco Musk","gender":"Унисекс","img":"https://t.me/babaysperfume/227","notes":{"top":"шоколад, апельсин","middle":"мускус, специи","base":"ваниль, амбра"}},
+  {"name":"Al-Rehab — Soft","gender":"Унисекс","img":"https://t.me/babaysperfume/225","notes":{"top":"цитрусы, свежие ноты","middle":"цветочные ноты, мягкий мускус","base":"кедр, амбра"}},
+  {"name":"Arabian Oud — Madawi Gold Edition","gender":"Унисекс","img":"https://t.me/babaysperfume/217","notes":{"top":"бергамот, кардамон","middle":"жасмин, роза","base":"амбровые ноты, мускус"}},
+  {"name":"Attar Collection — Hayati","gender":"Унисекс","img":"https://t.me/babaysperfume/172","notes":{"top":"цитрус, специи","middle":"древесные ноты, цветочные акценты","base":"мох, амбра"}},
+  {"name":"BabaysPerfume — Black Grape","gender":"Унисекс","img":"https://t.me/babaysperfume/169","notes":{"top":"черная смородина, черника","middle":"ягоды, фрукты","base":"мускус, амбра"}},
+  {"name":"Boadicea the Victorious — Boadicea Nemer","gender":"Унисекс","img":"https://t.me/babaysperfume/206","notes":{"top":"лимон, бергамот","middle":"жасмин, роза","base":"мускус, сандал"}},
+  {"name":"By Kilian — Black Phantom Memento Mori Anniversary Edition","gender":"Унисекс","img":"https://t.me/babaysperfume/203","notes":{"top":"ром, кофе","middle":"шоколад, миндаль","base":"патчули, ваниль"}},
+  {"name":"By Kilian — Intoxicated","gender":"Унисекс","img":"https://t.me/babaysperfume/166","notes":{"top":"кардамон, имбирь","middle":"кофе, апельсин","base":"ваниль, амбра"}},
+  {"name":"By Kilian — Smoking Hot","gender":"Унисекс","img":"https://t.me/babaysperfume/204","notes":{"top":"перец, цитрус","middle":"розмарин, герань","base":"амбровые ноты, мускус"}},
+  {"name":"Byredo — Bal d’Afrique","gender":"Унисекс","img":"https://t.me/babaysperfume/232","notes":{"top":"бергамот, лимон","middle":"некоторые цветочные ноты","base":"сандал, кедр"}},
+  {"name":"Clive Christian — Hedonistic","gender":"Унисекс","img":"https://t.me/babaysperfume/197","notes":{"top":"малина, персик","middle":"цитрус, цветочные ноты","base":"мускус, кедр"}},
+  {"name":"Clive Christian — Matsukita","gender":"Унисекс","img":"https://t.me/babaysperfume/163","notes":{"top":"бергамот, лимон","middle":"жасмин, специи","base":"кедр, амбра"}},
+  {"name":"Elixsirs of Eden — Captain Black","gender":"Унисекс","img":"https://t.me/babaysperfume/199","notes":{"top":"бергамот, специи","middle":"корица, табак","base":"мускус, сандал"}},
+  {"name":"Essential Parfums — Bois Impérial","gender":"Унисекс","img":"https://t.me/babaysperfume/159","notes":{"top":"цитрус, специи","middle":"древесные ноты","base":"мускус, кедр"}},
+  {"name":"Escentric Molecules — Escentric 02","gender":"Унисекс","img":"https://t.me/babaysperfume/192","notes":{"top":"розовый перец","middle":"жасмин","base":"мускус"}},
+  {"name":"Ex Nihilo — Blue Talisman","gender":"Унисекс","img":"https://t.me/babaysperfume/212","notes":{"top":"бергамот, мята","middle":"цветочные ноты","base":"мускус, сандал"}},
+  {"name":"Genyum — Painter","gender":"Унисекс","img":"https://t.me/babaysperfume/164","notes":{"top":"цитрусы, яблоко","middle":"ирис, жасмин","base":"мускус, кедр"}},
+  {"name":"Haute Fragrance Company (HFC) — Devil’s Intrigue","gender":"Унисекс","img":"https://t.me/babaysperfume/187","notes":{"top":"цитрусы, специи","middle":"ирис, жасмин","base":"мускус, амбра"}},
+  {"name":"Initio Parfums Privés — Side Effect","gender":"Унисекс","img":"https://t.me/babaysperfume/213","notes":{"top":"ананас, специи","middle":"кофе, жасмин","base":"ваниль, кедр"}},
+  {"name":"Initio Parfums Prives — Oud for Happiness","gender":"Унисекс","img":"https://t.me/babaysperfume/223","notes":{"top":"цитрус, специи","middle":"уд, жасмин","base":"амбра, мускус"}},
+  {"name":"Isola Blu — Roja Dove","gender":"Унисекс","img":"https://t.me/babaysperfume/242","notes":{"top":"лимон, бергамот","middle":"цветочные ноты","base":"мускус, кедр"}},
+  {"name":"Maison Crivelli — Hibiscus Mahajád","gender":"Унисекс","img":"https://t.me/babaysperfume/221","notes":{"top":"гибискус, цитрус","middle":"жасмин, роза","base":"мускус, кедр"}},
+  {"name":"Maison Crivelli — Oud Maracujá","gender":"Унисекс","img":"https://t.me/babaysperfume/174","notes":{"top":"пассифлора, цитрус","middle":"уд, жасмин","base":"сандал, мускус"}},
+  {"name":"Maison Francis Kurkdjian — Baccarat Rouge 540","gender":"Унисекс","img":"https://t.me/babaysperfume/177","notes":{"top":"сафран, жасмин","middle":"кедр, амбра","base":"кристаллический мускус"}},
+  {"name":"Marc-Antoine Barrois — Ganymede","gender":"Унисекс","img":"https://t.me/babaysperfume/211","notes":{"top":"цитрусы, специи","middle":"жасмин, иланг-иланг","base":"мускус, сандал"}},
+  {"name":"Marc-Antoine Barrois — Tilia","gender":"Унисекс","img":"https://t.me/babaysperfume/210","notes":{"top":"цитрусы, зелёный аккорд","middle":"флердоранж, жасмин","base":"мускус, кедр"}},
+  {"name":"Nasomatto — Black Afgano","gender":"Унисекс","img":"https://t.me/babaysperfume/238","notes":{"top":"конопля, кофе","middle":"табак, древесные ноты","base":"смола, амбра"}},
+  {"name":"Orlov Paris — De Young Red","gender":"Унисекс","img":"https://t.me/babaysperfume/191","notes":{"top":"красные ягоды, цитрус","middle":"цветочные ноты","base":"мускус, сандал"}},
+  {"name":"Orto Parisi — Megamare","gender":"Унисекс","img":"https://t.me/babaysperfume/171","notes":{"top":"морская свежесть, цитрус","middle":"водоросли, цветочные ноты","base":"мускус, амбра"}},
+  {"name":"Orto Parisi — Terroni","gender":"Унисекс","img":"https://t.me/babaysperfume/228","notes":{"top":"специи, цитрус","middle":"уд, древесные ноты","base":"смола, мускус"}},
+  {"name":"Paris World Luxury — 24K","gender":"Унисекс","img":"https://t.me/babaysperfume/161","notes":{"top":"цитрус, специи","middle":"жасмин, цветочные ноты","base":"мускус, амбра"}},
+  {"name":"Parfums de Marly — Layton","gender":"Унисекс","img":"https://t.me/babaysperfume/158","notes":{"top":"яблоко, лаванда","middle":"жасмин, герань","base":"ваниль, сандал"}},
+  {"name":"Richard — White Chocola","gender":"Унисекс","img":"https://t.me/babaysperfume/216","notes":{"top":"шоколад, цитрус","middle":"цветочные ноты","base":"мускус, амбра"}},
+  {"name":"Shaik — Opulent Shaik Classic No 77","gender":"Унисекс","img":"https://t.me/babaysperfume/235","notes":{"top":"цитрус, специи","middle":"цветочные ноты","base":"мускус, сандал"}},
+  {"name":"Tiziana Terenzi — Gumin","gender":"Унисекс","img":"https://t.me/babaysperfume/175","notes":{"top":"цитрус, специи","middle":"жасмин, фруктовые ноты","base":"сандал, мускус"}},
+  {"name":"Tiziana Terenzi — Kirke","gender":"Унисекс","img":"https://t.me/babaysperfume/185","notes":{"top":"бергамот, цитрус","middle":"корица, роза","base":"уд, амбра"}},
+  {"name":"Tom Ford — Bitter Peach","gender":"Унисекс","img":"https://t.me/babaysperfume/215","notes":{"top":"персик, бергамот","middle":"роза, жасмин","base":"мускус, амбра"}},
+  {"name":"Tom Ford — Cherry Smoke","gender":"Унисекс","img":"https://t.me/babaysperfume/214","notes":{"top":"вишня, дым","middle":"красные ягоды, специи","base":"мускус, древесные ноты"}},
+  {"name":"Tom Ford — Lost Cherry","gender":"Унисекс","img":"https://t.me/babaysperfume/196","notes":{"top":"вишня, миндаль","middle":"красные ягоды","base":"ветивер, амбра"}},
+  {"name":"Tom Ford — Myrrhe Mystère","gender":"Унисекс","img":"https://t.me/babaysperfume/165","notes":{"top":"мирра, специи","middle":"фрукты, древесные ноты","base":"мускус, амбра"}},
+  {"name":"Tom Ford — Tobacco Oud","gender":"Унисекс","img":"https://t.me/babaysperfume/193","notes":{"top":"табак, специи","middle":"уд, древесные ноты","base":"мускус, амбра"}},
+  {"name":"Tom Ford — Tobacco Vanille","gender":"Унисекс","img":"https://t.me/babaysperfume/236","notes":{"top":"табак, специи","middle":"ваниль, какао","base":"сандал, амбра"}},
+  {"name":"Tom Ford — Vanilla Sex","gender":"Унисекс","img":"https://t.me/babaysperfume/209","notes":{"top":"ваниль, цитрус","middle":"цветочные ноты","base":"мускус, амбра"}},
+  {"name":"Vilhelm Parfumerie — Dear Polly","gender":"Унисекс","img":"https://t.me/babaysperfume/220","notes":{"top":"цитрус, мята","middle":"цветочные ноты","base":"мускус, кедр"}},
+  {"name":"Vilhelm Parfumerie — Mango Skin","gender":"Унисекс","img":"https://i.imgur.com/QSRpNYN.jpeg","notes":{"top":"Манго, ежевика, черный перец.","middle":"Корень ириса, жасмин, лотос.","base":"ваниль, розовая глазурь, пачули."},"new":true},
+  {"name":"Xerjoff — Erba Gold","gender":"Унисекс","img":"https://t.me/babaysperfume/233","notes":{"top":"цитрус, апельсин","middle":"бергамот, фрукты","base":"мускус, амбра"}},
+  {"name":"Zielinski & Rozen — Black Pepper","gender":"Унисекс","img":"https://t.me/babaysperfume/198","notes":{"top":"черный перец, специи","middle":"корица, пряные ноты","base":"мускус, кедр"}},
+  {"name":"Zielinski & Rozen — Pink Pepper","gender":"Унисекс","img":"https://t.me/babaysperfume/182","notes":{"top":"розовый перец, цитрус","middle":"цветочные ноты","base":"мускус, сандал"}}
 ];
 
 const grid = document.getElementById("catalogGrid");
@@ -250,159 +320,158 @@ let currentItem = null;
 const LS_KEY = "babays_favs_v3";
 function readFavs(){try{return JSON.parse(localStorage.getItem(LS_KEY)||"[]")}catch{return[]}}
 function writeFavs(arr){localStorage.setItem(LS_KEY,JSON.stringify(arr));updateFavCount()}
-function updateFavCount(){const favs=readFavs();favCount.style.display=favs.length? "flex":"none";if(favs.length) favCount.textContent=favs.length}
+function updateFavCount(){const favs=readFavs();favCount.style.display=favs.length?"flex":"none";if(favs.length) favCount.textContent=favs.length}
 
 let activeGender="all";
 let searchQuery="";
+
 function renderCatalog(){
   grid.innerHTML="";
-  const results=catalog.filter(item=>{
+  let results = catalog.filter(item=>{
     if(["Женский","Мужской","Унисекс"].includes(activeGender)&&item.gender!==activeGender) return false;
     if(activeGender==="hit"&&!item.hit) return false;
     if(activeGender==="new"&&!item.new) return false;
-    if(searchQuery.trim()){
-      const q=searchQuery.toLowerCase();
-      const inName=item.name.toLowerCase().includes(q);
-      const inNotes=(item.notes.top+item.notes.middle+item.notes.base).toLowerCase().includes(q);
-      if(!inName&&!inNotes) return false;
-    }
+    if(searchQuery.trim()&&!item.name.toLowerCase().includes(searchQuery.toLowerCase())) return false;
     return true;
   });
-  if(!results.length){grid.innerHTML=`<div style="grid-column:1/-1;padding:20px;text-align:center;color:#777">Ничего не найдено</div>`;return;}
+
+  // Сортировка: Хиты -> Новинки -> по алфавиту
+  results.sort((a,b)=>{
+    if(a.hit && !b.hit) return -1;
+    if(!a.hit && b.hit) return 1;
+    if(a.new && !b.new) return -1;
+    if(!a.new && b.new) return 1;
+    return a.name.localeCompare(b.name);
+  });
+
+  if(!results.length){
+    grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;color:#777;padding:20px">Ничего не найдено</div>`;
+    return;
+  }
+
   results.forEach(item=>{
-    const div=document.createElement("div");
+    const div = document.createElement("div");
     div.className="card";
     div.style.position="relative";
-    let badgeHTML="";
-    if(item.hit) badgeHTML+=`<div style="position:absolute;top:8px;left:8px;background:#b3873a;color:#fff;padding:2px 6px;border-radius:6px;font-size:11px;font-weight:600">Хит</div>`;
-    if(item.new) badgeHTML+=`<div style="position:absolute;top:28px;left:8px;background:#37b387;color:#fff;padding:2px 6px;border-radius:6px;font-size:11px;font-weight:600">Новинка</div>`;
-    div.innerHTML=`<div class="img" style="background-image:url('${item.img}')"></div>${badgeHTML}<div class="info"><div class="name">${item.name}</div><div class="meta">${item.gender}</div></div>`;
+
+    let badges="";
+    if(item.hit) badges+=`<div style="position:absolute;top:8px;left:8px;background:#b3873a;color:#fff;padding:2px 6px;border-radius:6px;font-size:11px;font-weight:600">Хит</div>`;
+    if(item.new) badges+=`<div style="position:absolute;top:28px;left:8px;background:#37b387;color:#fff;padding:2px 6px;border-radius:6px;font-size:11px;font-weight:600">Новинка</div>`;
+
+    div.innerHTML=`<div class="img" style="background-image:url('${item.img}')"></div>${badges}<div class="info"><div class="name">${item.name}</div><div class="meta">${item.gender}</div></div>`;
     div.onclick=()=>openModal(item);
     grid.appendChild(div);
   });
 }
 
 function openModal(item){
-  currentItem = item;
-  selectedML = null;
+  currentItem=item;
+  selectedML=null;
   modalPhoto.style.backgroundImage=`url('${item.img}')`;
   modalName.textContent=item.name;
   modalGender.textContent=item.gender;
   modalNotes.innerHTML=`<b>Верхние:</b> ${item.notes.top}<br><b>Средние:</b> ${item.notes.middle}<br><b>Базовые:</b> ${item.notes.base}`;
+
+  // выбор объема
   mlOptions.querySelectorAll(".ml").forEach(btn=>{
     btn.classList.remove("selected");
     btn.onclick=()=>{
-      selectedML = btn.textContent;
+      selectedML=btn.textContent;
       mlOptions.querySelectorAll(".ml").forEach(b=>b.classList.remove("selected"));
       btn.classList.add("selected");
     };
   });
+
   modalBack.style.display="flex";
 }
 
+function addToFav(item){
+  const favs = readFavs();
+  const exists = favs.find(f=>f.name===item.name);
+  if(!exists){
+    favs.push({...item, ml:selectedML});
+    writeFavs(favs);
+  } else {
+    // обновляем мл если уже в избранном
+    exists.ml = selectedML || exists.ml;
+    writeFavs(favs);
+  }
+}
+
 function renderFavs(){
-  const favs=readFavs();
+  const favs = readFavs();
   favList.innerHTML="";
-  giftBlock.style.display=favs.length ? "block" : "none";
-  favs.forEach((item,index)=>{
-    const div=document.createElement("div");
+  giftBlock.style.display=favs.length?"block":"none";
+  favs.forEach((item,i)=>{
+    const div = document.createElement("div");
     div.className="fav-item";
-    div.innerHTML=`<img src="${item.img}" /><div>${item.name}</div><button class="fav-remove" data-index="${index}">×</button>`;
+    div.innerHTML=`<img src="${item.img}"><div>${item.name}${item.ml?` — ${item.ml} мл`:""}</div>
+      <button class="fav-remove" data-i="${i}">×</button>`;
     favList.appendChild(div);
   });
+
   document.querySelectorAll(".fav-remove").forEach(btn=>{
     btn.onclick=()=>{
-      const idx=+btn.dataset.index;
-      let favs=readFavs();
-      favs.splice(idx,1);
+      const favs = readFavs();
+      favs.splice(btn.dataset.i,1);
       writeFavs(favs);
       renderFavs();
-    }
+    };
   });
 }
-function addToFav(item){
-  let favs=readFavs();
-  if(!favs.find(f=>f.name===item.name)){
-    favs.push(item);
-    writeFavs(favs);
-    renderFavs();
-  }
-}
 
+// обработка доставки
 document.querySelectorAll(".deliveryBtn").forEach(btn=>{
-  btn.onclick=()=>{chosenDelivery=btn.dataset.type; btn.style.background="#b3873a"; btn.style.color="#fff";
-    document.querySelectorAll(".deliveryBtn").forEach(b=>{if(b!==btn){b.style.background="#fff";b.style.color="#000";}});}
+  btn.onclick=()=>{
+    chosenDelivery = btn.dataset.type;
+    document.querySelectorAll(".deliveryBtn").forEach(b=>b.style.background="#fff");
+    btn.style.background="#b3873a";
+  };
 });
-sendOrder.onclick = () => {
-  if (!bookName.value.trim()) {
-    alert("Введите имя");
-    return;
-  }
 
-  if (!chosenDelivery) {
-    alert("Выберите доставку");
-    return;
-  }
-
+// отправка менеджеру
+sendOrder.onclick=()=>{
   const favs = readFavs();
-  if (favs.length === 0) {
-    alert("Добавьте товар в избранное");
-    return;
-  }
+  if(!favs.length) return alert("Добавьте товар");
+  if(!bookName.value.trim()) return alert("Введите имя");
+  if(!chosenDelivery) return alert("Выберите доставку");
 
-  let text = "💎 БРОНЬ ЗАКАЗА\n\n";
+  const promoText = bookPromo.value.trim() ? `\nПромокод: ${bookPromo.value}` : "";
+  const giftText = favs.length ? "\n🎁 Подарок: 1 шт" : "";
 
-  favs.forEach((f, i) => {
-    text += ${i + 1}) ${f.name}${selectedML ?  — ${selectedML} мл` : ""}\n`;
-  });
+  const text=encodeURIComponent(
+`💎 БРОНЬ ЗАКАЗА
+${favs.map((f,i)=>`${i+1}. ${f.name}${f.ml?` — ${f.ml} мл`:""}`).join("\n")}
+👤 Имя: ${bookName.value}
+🚚 Доставка: ${chosenDelivery}${promoText}${giftText}`
+  );
 
-  text += \n👤 Имя: ${bookName.value};
-  text += \n🚚 Доставка: ${chosenDelivery};
-
-  const encodedText = encodeURIComponent(text);
-
-  // ⚠️ КАК БЫЛО 
-  window.location.href = https://t.me/bebehihihi?text=${encodedText};
-
-  // закрываем модалку бронирования
-  bookBack.style.display = "none";
+  window.location.href=`https://t.me/bebehihihi?text=${text}`;
+  bookBack.style.display="none";
 };
 
-
-searchInput.oninput=e=>{searchQuery=e.target.value;renderCatalog();}
+// кнопки и фильтры
+searchInput.oninput = e => {searchQuery = e.target.value; renderCatalog();}
 filterBtns.forEach(btn=>{
   btn.onclick=()=>{
     filterBtns.forEach(b=>b.classList.remove("active"));
     btn.classList.add("active");
-    activeGender=btn.dataset.g;
+    activeGender = btn.dataset.g;
     renderCatalog();
-  }
+  };
 });
 
-openFav.onclick=()=>{renderFavs();favBack.style.display="flex";}
-addFavBtn.onclick = () => {
-  if (!currentItem) return;
+openFav.onclick=()=>{renderFavs(); favBack.style.display="flex";}
+addFavBtn.onclick=()=>{if(currentItem)addToFav(currentItem); modalBack.style.display="none";}
+openBooking.onclick=()=>{if(!readFavs().length) return alert("Добавьте товар"); favBack.style.display="none"; bookBack.style.display="flex";}
 
-  addToFav(currentItem);
-  alert("Добавлено в избранное");
-
-  // 🔥 автоматически закрываем модалку карточки
-  modalBack.style.display = "none";
-};
-
-openBooking.onclick=()=>{
-  if(readFavs().length === 0){alert("Добавьте товар в избранное"); return;}
-  favBack.style.display="none";
-  bookBack.style.display="flex";
-};
-
-function makeModalClosable(backEl, closeBtn){
-  closeBtn.onclick=()=>backEl.style.display="none";
-  backEl.onclick=e=>{if(e.target===backEl) backEl.style.display="none";}
+function makeModalClosable(back,btn){
+  btn.onclick=()=>back.style.display="none";
+  back.onclick=e=>{if(e.target===back) back.style.display="none";}
 }
-makeModalClosable(modalBack, closeModalBtn);
-makeModalClosable(favBack, closeFav);
-makeModalClosable(bookBack, closeBooking);
+makeModalClosable(modalBack,closeModalBtn);
+makeModalClosable(favBack,closeFav);
+makeModalClosable(bookBack,closeBooking);
 
 renderCatalog();
 updateFavCount();
@@ -410,8 +479,3 @@ updateFavCount();
 
 </body>
 </html>
-
-
-
-
-
