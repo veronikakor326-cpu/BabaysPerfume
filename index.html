@@ -333,7 +333,6 @@ document.querySelectorAll(".deliveryBtn").forEach(btn=>{
   btn.onclick=()=>{chosenDelivery=btn.dataset.type; btn.style.background="#b3873a"; btn.style.color="#fff";
     document.querySelectorAll(".deliveryBtn").forEach(b=>{if(b!==btn){b.style.background="#fff";b.style.color="#000";}});}
 });
-
 sendOrder.onclick = () => {
   if (!bookName.value.trim()) {
     alert("Введите имя");
@@ -354,16 +353,16 @@ sendOrder.onclick = () => {
   let text = "💎 БРОНЬ ЗАКАЗА\n\n";
 
   favs.forEach((f, i) => {
-    text += `${i + 1}) ${f.name}${selectedML ? ` — ${selectedML} мл` : ""}\n`;
+    text += ${i + 1}) ${f.name}${selectedML ?  — ${selectedML} мл` : ""}\n`;
   });
 
-  text += `\n👤 Имя: ${bookName.value}`;
-  text += `\n🚚 Доставка: ${chosenDelivery}`;
+  text += \n👤 Имя: ${bookName.value};
+  text += \n🚚 Доставка: ${chosenDelivery};
 
   const encodedText = encodeURIComponent(text);
 
-  // ✅ открывается чат с @bebehihihi с готовым текстом
-  window.location.href = `https://t.me/bebehihihi?text=${encodedText}`;
+  // ⚠️ КАК БЫЛО 
+  window.location.href = https://t.me/bebehihihi?text=${encodedText};
 
   // закрываем модалку бронирования
   bookBack.style.display = "none";
@@ -411,6 +410,7 @@ updateFavCount();
 
 </body>
 </html>
+
 
 
 
