@@ -308,11 +308,15 @@ const bookBack = document.getElementById("bookBack");
 const closeBooking = document.getElementById("closeBooking");
 const openBooking = document.getElementById("openBooking");
 const sendOrder = document.getElementById("sendOrder");
+
 const bookName = document.getElementById("bookName");
+const bookPromo = document.getElementById("bookPromo"); // ← поле промокода
+
 
 let chosenDelivery = null;
 
-/* ----------------- ФУНКЦИИ ЛОКАЛЬНОГО ХРАНЕНИЯ ----------------- */
+
+/* ----------------- ЛОКАЛЬНОЕ ХРАНЕНИЕ ----------------- */
 
 const LS_KEY = "babays_favs_v3";
 
@@ -328,13 +332,10 @@ function writeFavs(arr) {
 
 function updateFavCount() {
   const favs = readFavs();
-  if (favs.length === 0) {
-    favCount.style.display = "none";
-  } else {
-    favCount.style.display = "flex";
-    favCount.textContent = favs.length;
-  }
+  favCount.style.display = favs.length > 0 ? "flex" : "none";
+  favCount.textContent = favs.length;
 }
+
 
 /* ----------------- РЕНДЕР КАТАЛОГА ----------------- */
 
@@ -350,7 +351,9 @@ function renderCatalog() {
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       const inName = item.name.toLowerCase().includes(q);
-      const inNotes = (item.notes.top + item.notes.middle + item.notes.base).toLowerCase().includes(q);
+      const inNotes =
+        (item.notes.top + item.notes.middle + item.notes.base).toLowerCase().includes(q);
+
       if (!inName && !inNotes) return false;
     }
 
@@ -358,7 +361,8 @@ function renderCatalog() {
   });
 
   if (results.length === 0) {
-    grid.innerHTML = `<div style="grid-column:1/-1;padding:20px;text-align:center;color:#777">Ничего не найдено</div>`;
+    grid.innerHTML =
+      `<div style="grid-column:1/-1;padding:20px;text-align:center;color:#777">Ничего не найдено</div>`;
     return;
   }
 
@@ -376,6 +380,7 @@ function renderCatalog() {
     grid.appendChild(div);
   });
 }
+
 
 /* ----------------- МОДАЛКА КАРТОЧКИ ----------------- */
 
@@ -405,6 +410,7 @@ function closeModal() {
 closeModalBtn.onclick = closeModal;
 modalBack.onclick = e => { if (e.target === modalBack) closeModal(); };
 
+
 /* ----------------- ДОБАВЛЕНИЕ В ИЗБРАННОЕ ----------------- */
 
 addFavBtn.onclick = () => {
@@ -431,6 +437,7 @@ addFavBtn.onclick = () => {
   mlChoice.style.display = "block";
 };
 
+
 function addFav(item, ml) {
   const favs = readFavs();
   const exists = favs.find(f => f.name === item.name && f.ml === ml);
@@ -452,6 +459,7 @@ function addFav(item, ml) {
   mlChoice.style.display = "none";
 }
 
+
 /* ----------------- МОДАЛКА ИЗБРАННОГО ----------------- */
 
 openFav.onclick = () => {
@@ -466,14 +474,14 @@ function renderFav() {
   const favs = readFavs();
   favList.innerHTML = "";
 
-  // 🎁 Показать подарок только если есть товары
   if (favs.length === 0) {
     giftBlock.style.display = "none";
-    favList.innerHTML = `<div style="padding:12px;color:#777;text-align:center;">В избранном пусто</div>`;
+    favList.innerHTML =
+      `<div style="padding:12px;color:#777;text-align:center;">В избранном пусто</div>`;
     return;
-  } else {
-    giftBlock.style.display = "block";
   }
+
+  giftBlock.style.display = "block";
 
   favs.forEach(f => {
     const el = document.createElement("div");
@@ -499,6 +507,7 @@ function renderFav() {
   });
 }
 
+
 /* ----------------- МОДАЛКА БРОНИРОВАНИЯ ----------------- */
 
 openBooking.onclick = () => {
@@ -508,6 +517,7 @@ openBooking.onclick = () => {
 closeBooking.onclick = () => {
   chosenDelivery = null;
   bookName.value = "";
+  bookPromo.value = "";
   bookBack.style.display = "none";
 
   document.querySelectorAll(".deliveryBtn").forEach(b => {
@@ -518,7 +528,8 @@ closeBooking.onclick = () => {
 
 bookBack.onclick = e => { if (e.target === bookBack) closeBooking.onclick(); };
 
-/* Выбор доставки */
+
+/* выбор доставки */
 document.querySelectorAll(".deliveryBtn").forEach(btn => {
   btn.onclick = () => {
     chosenDelivery = btn.dataset.type;
@@ -532,6 +543,7 @@ document.querySelectorAll(".deliveryBtn").forEach(btn => {
     btn.style.borderColor = "#000";
   };
 });
+
 
 /* ----------------- ОТПРАВКА ЗАКАЗА ----------------- */
 
@@ -548,15 +560,31 @@ sendOrder.onclick = () => {
     text += `${i + 1}) ${f.name} — ${f.ml} мл\n`;
   });
 
-  // 🎁 Подарок НЕ отправляется менеджеру
+  // добавляем подарок
+  text += `\n🎁 Подарок — Пробник от BabaysPerfume\n`;
 
+  // имя
   text += `\n👤 Имя: ${name}`;
-  text += `\n🚚 Доставка: ${chosenDelivery}\n`;
 
+  // доставка
+  text += `\n🚚 Доставка: ${chosenDelivery}`;
+
+  // промокод
+  // Промокод по умолчанию
+let promo = "скидка 10%";
+
+// Если пользователь ввёл свой — используем его
+if (bookPromo.value.trim() !== "") {
+  promo = bookPromo.value.trim();
+}
+
+// Добавляем промокод в заказ
+text += `\n🏷️ Промокод: ${promo}`;
   const url = encodeURIComponent(text);
 
-   window.location.href = `https://t.me/bebehihihi?text=${url}`;
+  window.location.href = `https://t.me/bebehihihi?text=${url}`;
 };
+
 
 /* ----------------- ПОИСК И ФИЛЬТРЫ ----------------- */
 
@@ -575,6 +603,7 @@ filterBtns.forEach(btn => {
   };
 });
 
+
 /* ----------------- ИНИЦИАЛИЗАЦИЯ ----------------- */
 
 renderCatalog();
@@ -582,8 +611,3 @@ updateFavCount();
 </script>
 </body>
 </html>
-
-
-</body>
-</html>
-
