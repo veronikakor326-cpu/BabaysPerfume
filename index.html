@@ -339,6 +339,11 @@ sendOrder.onclick = () => {
     alert("Введите имя");
     return;
   }
+  
+  if (!chosenDelivery) {
+    alert("Выберите доставку");
+    return;
+  }
 
   const favs = readFavs();
   if (favs.length === 0) {
@@ -346,23 +351,21 @@ sendOrder.onclick = () => {
     return;
   }
 
-  let orderDetails = favs
-    .map((f, i) => ${i + 1}. ${f.name}${selectedML ?  — ${selectedML} мл` : ""}`)
-    .join("\n");
+  let text = "💎 БРОНЬ ЗАКАЗА\n\n";
 
-  const text = `🛍 НОВЫЙ ЗАКАЗ
-👤 Имя: ${bookName.value}
-🎟 Промокод: ${bookPromo.value || "—"}
-🚚 Доставка: ${chosenDelivery || "не выбрана"}
+  favs.forEach((f, i) => {
+    text += ${i + 1}) ${f.name}${selectedML ?  — ${selectedML} мл` : ""}\n`;
+  });
 
-📦 Товары:
-${orderDetails}`;
+  text += \n👤 Имя: ${bookName.value};
+  text += \n🚚 Доставка: ${chosenDelivery};
 
-  const encoded = encodeURIComponent(text);
+  const encodedText = encodeURIComponent(text);
 
-  // ✅ РАБОЧИЙ ВАРИАНТ КАК У ТЕБЯ БЫЛО
-  window.location.href = https://t.me/bebehihihi?text=${encoded};
+  // ✅ ОТКРЫВАЕТСЯ ЧАТ С  С ГОТОВЫМ ТЕКСТОМ
+  window.location.href = https://t.me/bebehihihi?text=${encodedText};
 
+  // закрываем модалку бронирования
   bookBack.style.display = "none";
 };
 
@@ -407,5 +410,6 @@ updateFavCount();
 
 </body>
 </html>
+
 
 
