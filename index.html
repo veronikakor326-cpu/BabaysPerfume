@@ -335,33 +335,34 @@ document.querySelectorAll(".deliveryBtn").forEach(btn=>{
 });
 
 sendOrder.onclick = () => {
-  if(!bookName.value.trim()){
+  if (!bookName.value.trim()) {
     alert("Введите имя");
     return;
   }
 
   const favs = readFavs();
-  if(favs.length === 0){
+  if (favs.length === 0) {
     alert("Добавьте товар в избранное");
     return;
   }
 
   let orderDetails = favs
-    .map((f,i)=>`${i+1}. ${f.name}${selectedML ? ` — ${selectedML} мл` : ""}`)
+    .map((f, i) => ${i + 1}. ${f.name}${selectedML ?  — ${selectedML} мл` : ""}`)
     .join("\n");
 
-  const text = `
-🛍 НОВЫЙ ЗАКАЗ
+  const text = `🛍 НОВЫЙ ЗАКАЗ
 👤 Имя: ${bookName.value}
 🎟 Промокод: ${bookPromo.value || "—"}
 🚚 Доставка: ${chosenDelivery || "не выбрана"}
 
 📦 Товары:
-${orderDetails}
-`;
+${orderDetails}`;
 
-   window.location.href = `https://t.me/bebehihihi?text=${url}`;;
-};
+  const encoded = encodeURIComponent(text);
+
+  // ✅ РАБОЧИЙ ВАРИАНТ КАК У ТЕБЯ БЫЛО
+  window.location.href = https://t.me/bebehihihi?text=${encoded};
+
   bookBack.style.display = "none";
 };
 
@@ -406,4 +407,5 @@ updateFavCount();
 
 </body>
 </html>
+
 
