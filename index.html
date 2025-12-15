@@ -116,16 +116,15 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
   width:100%;max-width:760px;
 }
 
-/* --- Ключевые изменения для фото в модалке --- */
+/* Изменения для десктопного/широкого отображения */
 .modal-photo{
   width:46%;
-  min-height:380px; /* Минимальная высота, чтобы не сжималось */
-  background-size:contain; /* Поместить изображение целиком */
-  background-repeat:no-repeat; /* Запрет повторения */
-  background-color:var(--bg); /* Фон за изображением */
+  min-height:380px; 
+  background-size:contain; 
+  background-repeat:no-repeat; 
+  background-color:var(--bg); 
   background-position:center;
 }
-/* ------------------------------------------- */
 
 .modal-body{padding:20px}
 
@@ -407,6 +406,38 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
     opacity:1;
     pointer-events:auto;
     transform:translateY(0);
+}
+
+/* --- АДАПТИВНОСТЬ МОДАЛЬНОГО ОКНА ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ --- */
+@media screen and (max-width: 600px) {
+    .modal-photo {
+        /* На мобильных устройствах фото занимает всю ширину */
+        width: 100%; 
+        /* Устанавливаем разумную высоту для фото (например, 250px) */
+        min-height: 250px; 
+        /* background-size: contain; остается, чтобы изображение не обрезалось */
+    }
+
+    .modal #modalCard > div {
+        /* Принудительно ставим блоки друг под другом */
+        flex-direction: column; 
+    }
+
+    /* Убираем лишний горизонтальный отступ в модалке */
+    .modal-back {
+        padding: 0;
+        align-items: flex-end; /* Модалка будет прилипать к нижней части экрана */
+    }
+    
+    .modal {
+        max-width: 100%;
+        width: 100%;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        /* Устанавливаем максимальную высоту, чтобы контент мог скроллиться */
+        max-height: 90vh; 
+        overflow-y: auto;
+    }
 }
 
 </style>
