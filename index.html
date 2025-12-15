@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Babays Perfume Collection</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght[300;400;500;600&display=swap" rel="stylesheet">
 <style>
 /* --- МИНИМАЛИСТИЧНАЯ ЦВЕТОВАЯ ПАЛИТРА --- */
 :root{
@@ -22,7 +22,10 @@ body{
   background:var(--bg);
   color:var(--dark);
   line-height:1.4;
+  /* Убираем глобальный скролл, чтобы его контролировали .page-content */
+  overflow: hidden; 
 }
+
 /* App Bar */
 header.appbar{
   display:flex;align-items:center;justify-content:space-between;
@@ -124,12 +127,14 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
   bottom: 0;
   left: 0;
   right: 0;
-  height: 60px; 
+  /* Увеличиваем высоту нижней панели */
+  height: 80px; 
   background: var(--card);
   box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start; /* Выравнивание сверху, чтобы текст был не совсем внизу */
+  padding-top: 8px;
   z-index: 30;
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
@@ -143,7 +148,7 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
   flex: 1;
   text-decoration: none;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 11px; /* Чуть увеличиваем шрифт */
   font-weight: 500;
   cursor: pointer;
   position: relative;
@@ -151,9 +156,9 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
 }
 
 .nav-item svg {
-  width: 24px;
-  height: 24px;
-  margin-bottom: 0px;
+  width: 28px; /* Увеличиваем размер иконок */
+  height: 28px;
+  margin-bottom: 2px;
   color: var(--muted);
   transition: color 0.2s;
 }
@@ -168,19 +173,38 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
 
 .page-content {
   display: none; 
-  padding-bottom: 70px;
+  /* Устанавливаем высоту страницы на полный экран, чтобы прокрутка была только внутри */
+  position: fixed;
+  top: 72px; /* Высота appbar (примерно 72px) */
+  left: 0;
+  right: 0;
+  /* Высота: 100% VH - appbar - bottom-nav (80px) */
+  height: calc(100vh - 72px - 80px); 
+  overflow-y: hidden; /* Отключаем прокрутку самой страницы */
+  background: var(--bg); /* Для активной страницы */
 }
 
 .page-content.active {
   display: block; 
 }
 
-/* Home Page */
+/* Home Page: Фиксация и внутренний скролл */
 #homePage {
-  padding: 0 0 30px 0; /* Убираем горизонтальный padding, чтобы слайдер был на всю ширину */
-  max-width: 600px;
-  margin: 0 auto;
+    /* Удаляем внутренний padding, так как он будет в обертке для скролла */
+    padding: 0; 
+    max-width: 600px;
+    margin: 0 auto;
+    overflow-y: hidden; /* Фиксируем саму #homePage, чтобы она не скроллилась */
 }
+
+/* Обёртка для скролла контента на Главной */
+#homePageContentWrapper {
+    height: 100%; /* Занимает всю доступную высоту родителя (#homePage) */
+    overflow-y: auto; /* Включаем прокрутку только для этого блока */
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 20px; /* Дополнительный отступ снизу */
+}
+
 
 #homePage h2 {
   font-family: 'Playfair Display', serif;
@@ -225,6 +249,7 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
     background:rgba(179, 135, 58, 0.1);
 }
 
+/* Горизонтальный скролл */
 .horizontal-scroll-container{
     overflow-x:auto;
     -webkit-overflow-scrolling:touch;
@@ -251,11 +276,11 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
 .slider-wrapper{
     box-shadow:0 12px 30px rgba(0,0,0,0.08);
     position:relative;
-    width:100%;
+    width:calc(100% - 32px); /* Занимает всю ширину минус отступы */
     overflow:hidden;
     background:var(--card);
-    border-radius:16px;      /* ← ЗАКРУГЛЕНИЕ */
-    margin:12px 16px 0;      /* ← отступы от краёв экрана */
+    border-radius:16px;      
+    margin:12px 16px 0;      
 }
 
 .slider{
@@ -328,6 +353,26 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
     object-fit: cover;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Легкая тень для выделения */
 }
+
+/* Стили для Catalog Page (чтобы она корректно отображалась как фиксированная) */
+#catalogPage {
+    overflow-y: auto; /* Включаем скролл для контента каталога */
+    padding-bottom: 16px; /* Добавим отступ снизу */
+}
+#catalogPage .search-row {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding-top: 16px;
+}
+#catalogPage .search-row + div { /* Блок с filterSelect */
+    position: sticky;
+    top: 60px; /* Высота search-row примерно */
+    z-index: 10;
+    padding-top: 0;
+    padding-bottom: 16px;
+}
+
 </style>
 </head>
 <body>
@@ -343,54 +388,56 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
 </header>
 
 <div id="homePage" class="page-content active">
-    <div class="slider-wrapper">
-        <div class="slider" id="homeSlider">
-            </div>
-        <div class="slider-dots" id="sliderDots"></div>
-    </div>
-    
-    <div class="home-section-header">
-        <h3 class="home-section-title">✨ Хиты продаж</h3>
-        <a href="#" class="view-all-btn" data-filter="hit">Посмотреть все</a>
-    </div>
-    <div class="horizontal-scroll-container">
-        <div class="horizontal-scroll-content" id="hitProducts">
-            </div>
-    </div>
+    <div id="homePageContentWrapper">
+        <div class="slider-wrapper">
+            <div class="slider" id="homeSlider">
+                </div>
+            <div class="slider-dots" id="sliderDots"></div>
+        </div>
+        
+        <div class="home-section-header">
+            <h3 class="home-section-title">✨ Хиты продаж</h3>
+            <a href="#" class="view-all-btn" data-filter="hit">Посмотреть все</a>
+        </div>
+        <div class="horizontal-scroll-container">
+            <div class="horizontal-scroll-content" id="hitProducts">
+                </div>
+        </div>
 
-    <div class="home-section-header">
-        <h3 class="home-section-title">🆕 Новинки</h3>
-        <a href="#" class="view-all-btn" data-filter="new">Посмотреть все</a>
-    </div>
-    <div class="horizontal-scroll-container" style="margin-bottom:20px;">
-        <div class="horizontal-scroll-content" id="newProducts">
-            </div>
-    </div>
+        <div class="home-section-header">
+            <h3 class="home-section-title">🆕 Новинки</h3>
+            <a href="#" class="view-all-btn" data-filter="new">Посмотреть все</a>
+        </div>
+        <div class="horizontal-scroll-container" style="margin-bottom:20px;">
+            <div class="horizontal-scroll-content" id="newProducts">
+                </div>
+        </div>
 
-    <div style="padding:16px;">
-        <h2>О Babays Perfume </h2>
-        <p>
-            Добро пожаловать в BabaysPerfume — место, где легенды парфюмерии оживают✨
+        <div style="padding:16px;">
+            <h2>О Babays Perfume </h2>
+            <p>
+                Добро пожаловать в BabaysPerfume — место, где легенды парфюмерии оживают✨
+            </p>
+            <p>
+                💎 Любите качественный, стойкий и дорогой по звучанию парфюм? Мы тоже. 
+        📍 Здесь вы найдёте ароматы по мотивам самых культовых композиций — с точной проработкой, премиальными ингредиентами и душой в каждом флаконе.
+            </p>
+            <p>
+                ▪️ Более 800 уникальных ароматов от ведущих мировых брендов
         </p>
-        <p>
-            💎 Любите качественный, стойкий и дорогой по звучанию парфюм? Мы тоже. 
-    📍 Здесь вы найдёте ароматы по мотивам самых культовых композиций — с точной проработкой, премиальными ингредиентами и душой в каждом флаконе.
+            <p>
+        ▪️ Разные объёмы — от 7 мл до 100 мл.
         </p>
-        <p>
-            ▪️ Более 800 уникальных ароматов от ведущих мировых брендов
-    </p>
-        <p>
-    ▪️ Разные объёмы — от 7 мл до 100 мл.
-    </p>
-        <p>
-    ▪️ Личный подбор под ваш вкус.
-    </p>
-        <p>
-    ▪️ Высокая стойкость — от 12+ часов.
-    </p>
-        <p>
-    ▪️ Безупречное качество, которым мы гордимся.
+            <p>
+        ▪️ Личный подбор под ваш вкус.
         </p>
+            <p>
+        ▪️ Высокая стойкость — от 12+ часов.
+        </p>
+            <p>
+        ▪️ Безупречное качество, которым мы гордимся.
+            </p>
+        </div>
     </div>
 </div>
 
@@ -1333,7 +1380,13 @@ function goToPage(pageId, filterValue = 'all') {
     pageSubtitle.textContent = activeItem.textContent.trim();
   }
   
-  window.scrollTo(0, 0);
+  // При переключении страницы, скролл должен быть установлен в начало для активного контейнера
+  if (pageId === 'home') {
+     document.getElementById("homePageContentWrapper").scrollTo(0, 0);
+  } else if (pageId === 'catalog') {
+     pages[pageId].scrollTo(0, 0);
+  }
+
 
   if (pageId === 'catalog') {
     // Принудительная установка фильтра и запуск рендера
