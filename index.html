@@ -147,7 +147,7 @@ main.container{padding:16px}
 <div class="search-row">
   <div class="search">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="opacity:.6"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2"/><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2"/></svg>
-    <input type="search" id="search" placeholder="Поиск по названию / нотам" />
+    <input type="search" id="search" placeholder="Поиск по названию/ноте" />
   </div>
 </div>
 
@@ -382,7 +382,12 @@ function renderCatalog(){
     if(["Женский","Мужской","Унисекс"].includes(activeGender)&&item.gender!==activeGender) return false;
     if(activeGender==="hit"&&!item.hit) return false;
     if(activeGender==="new"&&!item.new) return false;
-    if(searchQuery.trim()&&!item.name.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+    if (searchQuery.trim()) {
+  const q = searchQuery.toLowerCase();
+  const inName = item.name.toLowerCase().includes(q);
+  const inNotes = (item.notes.top + " " + item.notes.middle + " " + item.notes.base).toLowerCase().includes(q);
+  if (!inName && !inNotes) return false;
+}
     return true;
   });
 
@@ -532,5 +537,4 @@ updateFavCount();
 
 </body>
 </html>
-
 
