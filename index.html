@@ -364,13 +364,43 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
     top: 0;
     z-index: 10;
     padding-top: 16px;
+    background: var(--bg); /* Чтобы скрыть скроллящийся контент */
 }
-#catalogPage .search-row + div { /* Блок с filterSelect */
+/* НОВЫЙ БЛОК для фиксации фильтра */
+#catalogPage .filter-container { 
     position: sticky;
-    top: 60px; /* Высота search-row примерно */
+    top: 60px; /* Высота search-row примерно + padding. Закрепляется под поиском */
     z-index: 10;
-    padding-top: 0;
-    padding-bottom: 16px;
+    padding: 12px 16px 16px 16px;
+    background: var(--bg);
+}
+
+/* --- НОВОЕ: Кнопка "Наверх" --- */
+#scrollToTopBtn{
+    position:fixed;
+    right:18px; /* Справа */
+    bottom:98px; /* Над нижней навигацией (80px + отступ) */
+    width:48px;
+    height:48px;
+    background:var(--accent);
+    color:#fff;
+    border:none;
+    border-radius:50%;
+    box-shadow:0 4px 12px rgba(0,0,0,0.25);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    z-index:50; /* Поверх всего */
+    opacity:0;
+    transform:translateY(10px); /* Легкий сдвиг для анимации */
+    transition:opacity 0.3s, transform 0.3s;
+    pointer-events:none; /* Неактивна, пока невидима */
+}
+#scrollToTopBtn.visible{
+    opacity:1;
+    pointer-events:auto;
+    transform:translateY(0);
 }
 
 </style>
@@ -449,7 +479,7 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
     </div>
   </div>
   
-  <div style="padding:12px 16px 16px 16px; background: var(--bg);">
+  <div class="filter-container">
     <select id="filterSelect" class="filter-select">
       <option value="all">Все ароматы</option>
       <option value="hit">Хиты продаж</option>
@@ -623,6 +653,11 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
   </div>
 </div>
 
+<button id="scrollToTopBtn" aria-label="Наверх">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+</button>
 
 <script>
 const catalog = [
@@ -1385,6 +1420,7 @@ function goToPage(pageId, filterValue = 'all') {
      document.getElementById("homePageContentWrapper").scrollTo(0, 0);
   } else if (pageId === 'catalog') {
      pages[pageId].scrollTo(0, 0);
+     scrollToTopBtn.classList.remove("visible"); // Скрываем кнопку при переходе наверх
   }
 
 
@@ -1598,6 +1634,33 @@ homeSlider.addEventListener('mouseleave', () => {
 // Инициализация
 renderSlider();
 startAutoplay(); // Запускаем автопролистывание
+
+
+// ===================================
+// НОВОЕ: Scroll-to-Top Логика
+// ===================================
+const catalogPage = document.getElementById("catalogPage");
+const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+// Высота, после которой появляется кнопка (примерно 60px search-row + 60px filter-container)
+const stickyHeight = 120; 
+
+catalogPage.onscroll = () => {
+    // Проверяем, насколько прокручен каталог
+    if (catalogPage.scrollTop > stickyHeight) {
+        scrollToTopBtn.classList.add("visible");
+    } else {
+        scrollToTopBtn.classList.remove("visible");
+    }
+};
+
+scrollToTopBtn.onclick = () => {
+    // Плавная прокрутка в начало контейнера каталога
+    catalogPage.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+};
 
 
 // Инициализация
