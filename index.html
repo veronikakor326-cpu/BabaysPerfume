@@ -359,42 +359,19 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
     overflow-y: auto; /* Включаем скролл для контента каталога */
     padding-bottom: 16px; /* Добавим отступ снизу */
 }
-/* 1. Блок поиска */
 #catalogPage .search-row {
     position: sticky;
-    top: 0; /* Прилипает к самому верху скроллящегося контейнера */
+    top: 0;
     z-index: 10;
-    /* Убираем верхний отступ, так как он уже есть в padding search-row */
-    padding-top: 0; 
-    padding-bottom: 0; /* Убираем нижний отступ, чтобы не мешал прилипанию */
+    padding-top: 16px;
 }
-
-/* 2. Блок с фильтром (select) */
-#catalogPage .filter-block { /* Добавлен новый класс, см. HTML ниже */
+#catalogPage .search-row + div { /* Блок с filterSelect */
     position: sticky;
-    /* Высота search-row (14px (top) + 14px (bottom) + 10px (input-padding*2) + 1px (border)) = примерно 60px */
-    top: 60px; 
-    z-index: 10;
-    padding: 12px 16px 16px 16px;
-    background: var(--bg);
-}
-
-/* Изменения в старом CSS-коде, которые были некорректны, заменены на новые: */
-/*
-#catalogPage .search-row + div { 
-    position: sticky;
-    top: 60px; 
+    top: 60px; /* Высота search-row примерно */
     z-index: 10;
     padding-top: 0;
     padding-bottom: 16px;
 }
-*/
-
-/* main.container больше не нуждается в padding-top, так как он должен идти сразу после фильтров */
-#catalogPage main.container {
-    padding-top: 0; 
-}
-
 
 </style>
 </head>
@@ -472,7 +449,7 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
     </div>
   </div>
   
-  <div class="filter-block">
+  <div style="padding:12px 16px 16px 16px; background: var(--bg);">
     <select id="filterSelect" class="filter-select">
       <option value="all">Все ароматы</option>
       <option value="hit">Хиты продаж</option>
@@ -1630,3 +1607,4 @@ goToPage('home'); // Инициализация навигации и ренде
 
 </body>
 </html>
+
