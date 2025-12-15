@@ -373,7 +373,7 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
         Скидка по промокоду: −<span id="discountPrice">0</span> ₽
       </div>
       <div style="margin-top:12px;font-size:18px;font-weight:700">
-        Итого : <b id="finalPrice" style="color:var(--accent)">0 ₽</b>
+        Предварительная стоимость : <b id="finalPrice" style="color:var(--accent)">0 ₽</b>
       </div>
     </div>
 
@@ -1133,7 +1133,7 @@ ${orderList}${giftText}
 
 ━━━━━━━━━━━━━━
 💰 Сумма: ${sum} ₽
-${discount ? `🎟 Скидка (BABAYS): −${discount} ₽\n` : ""}💳 *Итого:* ${final} ₽
+${discount ? `🎟 Скидка (BABAYS): −${discount} ₽\n` : ""}💳 *Предварительная стоимость:* ${final} ₽
 ━━━━━━━━━━━━━━
 
 👤 Имя: ${bookName.value}
