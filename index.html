@@ -555,6 +555,13 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
             <button class="ml">100</button>
           </div>
         </div>
+<div id="qualityBlock" style="margin-top:16px; display:none;">
+  <div style="font-size:13px;color:#888;margin-bottom:6px;">
+    Цена зависит от качества:
+  </div>
+  <div id="qualityOptions" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+</div>
+
 
         <div style="margin-top:20px;display:flex;gap:10px">
           <button id="addFavBtn" style="flex:1;padding:12px 14px;border:0;cursor:pointer">
@@ -1721,6 +1728,13 @@ const modalNotes = document.getElementById("modalNotes");
 const mlOptions = document.getElementById("mlOptions");
 const closeModalBtn = document.getElementById("closeModal");
 const addFavBtn = document.getElementById("addFavBtn");
+const qualityBlock = document.getElementById("qualityBlock");
+const qualityOptions = document.getElementById("qualityOptions");
+
+let selectedQualityIndex = null;
+
+const qualityNames = ["Люкс", "Премиум", "Франция"];
+
 
 const favBack = document.getElementById("favBack");
 const favList = document.getElementById("favList");
@@ -1862,52 +1876,104 @@ function renderCatalog(){
 function openModal(item){
   currentItem = item;
   selectedML = null;
+  selectedQualityIndex = null;
 
   modalPhoto.style.backgroundImage = `url('${item.img}')`;
   modalName.textContent = item.name;
   modalGender.textContent = item.gender;
-  modalNotes.innerHTML =
-    `<b>Верхние ноты:</b> ${item.notes.top}<br>
-     <b>Средние ноты:</b> ${item.notes.middle}<br>
-     <b>Базовые ноты:</b> ${item.notes.base}`;
+
+  modalNotes.innerHTML = `
+    <b>Верхние ноты:</b> ${item.notes.top}<br>
+    <b>Средние ноты:</b> ${item.notes.middle}<br>
+    <b>Базовые ноты:</b> ${item.notes.base}
+  `;
 
   priceBlock.textContent = "Выберите объём";
+  qualityBlock.style.display = "none";
+  qualityOptions.innerHTML = "";
 
-  mlOptions.querySelectorAll(".ml").forEach(btn=>{
+  mlOptions.querySelectorAll(".ml").forEach(btn => {
+    btn.classList.remove("selected");
+
     btn.onclick = () => {
       selectedML = btn.textContent;
 
-      mlOptions.querySelectorAll(".ml").forEach(b=>b.classList.remove("selected"));
+      mlOptions.querySelectorAll(".ml")
+        .forEach(b => b.classList.remove("selected"));
       btn.classList.add("selected");
 
-      const price = item.prices[selectedML];
-      priceBlock.textContent = `Цена за ${selectedML} мл: ${price} ₽`;
+      qualityOptions.innerHTML = "";
+      qualityBlock.style.display = "none";
+      selectedQualityIndex = null;
+
+      const prices = item.prices[selectedML];
+
+      if (Array.isArray(prices)) {
+        qualityBlock.style.display = "block";
+        priceBlock.textContent = "Выберите качество";
+
+        prices.forEach((price, index) => {
+          const qBtn = document.createElement("button");
+          qBtn.className = "ml";
+          qBtn.textContent = `${qualityNames[index]} — ${price} ₽`;
+
+          qBtn.onclick = () => {
+            selectedQualityIndex = index;
+
+            qualityOptions.querySelectorAll(".ml")
+              .forEach(b => b.classList.remove("selected"));
+
+            qBtn.classList.add("selected");
+            priceBlock.textContent = `Цена: ${price} ₽`;
+          };
+
+          qualityOptions.appendChild(qBtn);
+        });
+
+      } else {
+        priceBlock.textContent = `Цена за ${selectedML} мл: ${prices} ₽`;
+      }
     };
-    
-    // Сброс класса при каждом открытии модалки
-    btn.classList.remove("selected"); 
   });
 
   modalBack.style.display = "flex";
 }
-
 function addToFav(item){
-  if(!selectedML){
+  // Проверка объёма
+  if (!selectedML) {
     alert("Выберите объём");
     return;
   }
 
+  const prices = item.prices[selectedML];
+  let finalPrice;
+
+  // Если несколько цен — проверяем качество
+  if (Array.isArray(prices)) {
+    if (selectedQualityIndex === null) {
+      alert("Выберите качество");
+      return;
+    }
+    finalPrice = prices[selectedQualityIndex];
+  } else {
+    finalPrice = prices;
+  }
+
+  // Читаем корзину
   const favs = readFavs();
 
+  // Добавляем товар
   favs.push({
     name: item.name,
     img: item.img,
     ml: selectedML,
-    price: item.prices[selectedML]
+    price: finalPrice
   });
 
+  // Сохраняем
   writeFavs(favs);
 }
+
 
 function renderFavs(){
   const favs = readFavs();
