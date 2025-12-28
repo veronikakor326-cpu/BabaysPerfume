@@ -538,14 +538,7 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
     <div style="display:flex;flex-wrap:wrap">
       <div class="modal-photo" id="modalPhoto"></div>
       <div class="modal-body" style="flex:1">
-        <div style="display:flex; justify-content: space-between; align-items: flex-start;">
-            <h2 class="name" id="modalName" style="margin:0 0 6px;font-family:'Playfair Display'"></h2>
-            <button id="shareBtn" style="background:none; border:none; cursor:pointer; color:var(--accent); padding:5px;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/>
-                </svg>
-            </button>
-        </div>
+        <h2 class="name" id="modalName" style="margin:0 0 6px;font-family:'Playfair Display'"></h2>
         <div class="meta" id="modalGender" style="margin-bottom:10px;color:#777"></div>
         <div class="notes" id="modalNotes" style="font-size:14px;color:#555;line-height:1.4"></div>
 
@@ -713,7 +706,7 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
 <script>
 const catalog = [
   {
-    "id": 1,
+    id: "Parfums de Marly - Layton",
     "name": "Parfums de Marly - Layton",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_1_2025-12-21_16-23-35.jpg?raw=true",
@@ -725,7 +718,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 2,
     "name": "Essential Parfums - Bois Impérial",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_2_2025-12-21_16-23-35.jpg?raw=true",
@@ -734,11 +726,10 @@ const catalog = [
       "middle": "ветивер, петалия, акигалавуд",
       "base": "амбра, пачули"
     },
-    "hit": "true",
+"hit":"true",
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 3,
     "name": "Dior - Sauvage Elixir",
     "gender": "Мужской",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_3_2025-12-21_16-23-35.jpg?raw=true",
@@ -750,7 +741,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 4,
     "name": "Paris World Luxury - 24K",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_4_2025-12-21_16-23-35.jpg?raw=true",
@@ -762,7 +752,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 5,
     "name": "Creed - Carmina",
     "gender": "Женский",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_5_2025-12-21_16-23-35.jpg?raw=true",
@@ -774,7 +763,6 @@ const catalog = [
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
   },
   {
-    "id": 6,
     "name": "Clive Christian - Matsukita",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_6_2025-12-21_16-23-35.jpg?raw=true",
@@ -783,11 +771,11 @@ const catalog = [
       "middle": "мате, китайский жасмин, гваяк, жасмин самбак",
       "base": "мускус, амбра, пихтовый бальзам, древесные ноты"
     },
-    "hit": true,
+
+"hit":true,
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
   },
   {
-    "id": 7,
     "name": "Genyum - Painter",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_12_2025-12-21_16-23-35.jpg?raw=true",
@@ -799,7 +787,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 8,
     "name": "Tom Ford - Myrrhe Mystère",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_7_2025-12-21_16-23-35.jpg?raw=true",
@@ -811,7 +798,6 @@ const catalog = [
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
   },
   {
-    "id": 9,
     "name": "By Kilian - Intoxicated",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_8_2025-12-21_16-23-35.jpg?raw=true",
@@ -823,7 +809,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 10,
     "name": "Afnan - Tribute Blue",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_26_2025-12-21_16-23-35.jpg?raw=true",
@@ -835,7 +820,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 11,
     "name": "Anna Sui - Fantasia",
     "gender": "Женский",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_fantasia.jpg?raw=true",
@@ -847,7 +831,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 12,
     "name": "Black Grape - Black Grape",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo%20black%20.jpg?raw=true",
@@ -859,7 +842,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 13,
     "name": "Chanel - Chance Eau de Parfum",
     "gender": "Женский",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_13_2025-12-21_16-23-35.jpg?raw=true",
@@ -871,7 +853,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 14,
     "name": "Orto Parisi - Megamare",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_14_2025-12-21_16-23-35.jpg?raw=true",
@@ -889,7 +870,6 @@ const catalog = [
     }
   },
   {
-    "id": 15,
     "name": "Attar Collection - Hayati",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_15_2025-12-21_16-23-35.jpg?raw=true",
@@ -901,7 +881,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 16,
     "name": "Jean Paul Gaultier - Le Male Elixir",
     "gender": "Мужской",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_16_2025-12-21_16-23-35.jpg?raw=true",
@@ -913,7 +892,6 @@ const catalog = [
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
   },
   {
-    "id": 17,
     "name": "Maison Crivelli - Oud Maracujá",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_17_2025-12-21_16-23-35.jpg?raw=true",
@@ -922,11 +900,10 @@ const catalog = [
       "middle": "уд, пачули из индонезии, бензоин",
       "base": "кожа, akigalawood, амбра, ваниль, лабданум"
     },
-    "hit": true,
+"hit":true,
     "prices": { "7": 1300, "15": 2500, "30": 4500, "50": 8000, "100": 15000 }
   },
   {
-    "id": 18,
     "name": "Maison Francis Kurkdjian - Baccarat Rouge 540",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_18_2025-12-21_16-23-35.jpg?raw=true",
@@ -938,7 +915,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 19,
     "name": "Vilhelm Parfumerie - Mango Skin",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_89_2025-12-21_16-23-35.jpg?raw=true",
@@ -950,7 +926,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 20,
     "name": "Versace - Bright Crystal",
     "gender": "Женский",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_19_2025-12-21_16-23-35.jpg?raw=true",
@@ -962,7 +937,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 21,
     "name": "Christian Dior - Addict",
     "gender": "Женский",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_27_2025-12-21_16-23-35.jpg?raw=true",
@@ -974,7 +948,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 22,
     "name": "Givenchy - Givenchy Pour Homme",
     "gender": "Мужской",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_20_2025-12-21_16-23-35.jpg?raw=true",
@@ -986,7 +959,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 23,
     "name": "Zielinski & Rozen - Pink Pepper",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_21_2025-12-21_16-23-35.jpg?raw=true",
@@ -998,7 +970,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 24,
     "name": "Lanvin - Éclat d’Arpège",
     "gender": "Женский",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_22_2025-12-21_16-23-35.jpg?raw=true",
@@ -1010,7 +981,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 25,
     "name": "Givenchy - Ange ou Démon Le Secret",
     "gender": "Женский",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_23_2025-12-21_16-23-35.jpg?raw=true",
@@ -1022,7 +992,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 26,
     "name": "Tiziana Terenzi - Kirke",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_24_2025-12-21_16-23-35.jpg?raw=true",
@@ -1034,7 +1003,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 27,
     "name": "Boadicea the Victorious - Heroine",
     "gender": "Женский",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_25_2025-12-21_16-23-35.jpg?raw=true",
@@ -1046,7 +1014,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 28,
     "name": "Haute Fragrance Company - Devil’s Intrigue",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_28_2025-12-21_16-23-35.jpg?raw=true",
@@ -1058,7 +1025,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 29,
     "name": "Trussardi - Trussardi Donna",
     "gender": "Женский",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_30_2025-12-21_16-23-35.jpg?raw=true",
@@ -1070,7 +1036,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 30,
     "name": "Bvlgari - Tygar",
     "gender": "Мужской",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_31_2025-12-21_16-23-35.jpg?raw=true",
@@ -1079,11 +1044,10 @@ const catalog = [
       "middle": "имбирь, амбретта",
       "base": "ambroxan, мускус, ветивер, пачули"
     },
-    "hit": true,
+"hit":true,
     "prices": { "7": 1300, "15": 2500, "30": 4500, "50": 8000, "100": 15000 }
   },
   {
-    "id": 31,
     "name": "Dior - Sauvage",
     "gender": "Мужской",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_43_2025-12-21_16-23-35.jpg?raw=true",
@@ -1092,11 +1056,10 @@ const catalog = [
       "middle": "лаванда, мускатный орех, сычуаньский перец",
       "base": "амброксан, ветивер, кедр"
     },
-    "hit": true,
+"hit":true,
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 32,
     "name": "Parfums de Marly - Althair",
     "gender": "Мужской",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_32_2025-12-21_16-23-35.jpg?raw=true",
@@ -1108,7 +1071,6 @@ const catalog = [
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
   },
   {
-    "id": 33,
     "name": "Orlov Paris - De Young Red",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_33_2025-12-21_16-23-35.jpg?raw=true",
@@ -1120,7 +1082,6 @@ const catalog = [
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
   },
   {
-    "id": 34,
     "name": "Escentric Molecules - Escentric 02",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_34_2025-12-21_16-23-35.jpg?raw=true",
@@ -1132,7 +1093,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 35,
     "name": "Tom Ford - Tobacco Oud",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_35_2025-12-21_16-23-35.jpg?raw=true",
@@ -1144,7 +1104,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 36,
     "name": "Juliette Has A Gun - Not A Perfume",
     "gender": "Женский",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_36_2025-12-21_16-23-35.jpg?raw=true",
@@ -1156,7 +1115,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 37,
     "name": "Chanel - Bleu De Chanel",
     "gender": "Мужской",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_37_2025-12-21_16-23-35.jpg?raw=true",
@@ -1167,8 +1125,8 @@ const catalog = [
     },
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
+
   {
-    "id": 38,
     "name": "Tom Ford - Lost Cherry",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_38_2025-12-21_16-23-35.jpg?raw=true",
@@ -1180,7 +1138,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 39,
     "name": "Clive Christian - Jump Up and Kiss Me Hedonistic",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_39_2025-12-21_16-23-35.jpg?raw=true",
@@ -1189,11 +1146,10 @@ const catalog = [
       "middle": "табак, корень ириса, жасмин, папирус",
       "base": "амбра, кожа, бобы тонка, ваниль, сандал, мускус, кашмировое дерево, лабданум, пачули, ветивер, мох"
     },
-    "hit": true,
+"hit": true,
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
   },
   {
-    "id": 40,
     "name": "Zielinski & Rozen - Black Pepper & Amber, Neroli",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_40_2025-12-21_16-23-35.jpg?raw=true",
@@ -1205,7 +1161,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 41,
     "name": "Elixirs of Eden - Captain Black",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_41_2025-12-21_16-23-35.jpg?raw=true",
@@ -1217,7 +1172,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 42,
     "name": "Amouage - Interlude Man",
     "gender": "Мужской",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_42_2025-12-21_16-23-35.jpg?raw=true",
@@ -1229,7 +1183,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 43,
     "name": "By Kilian - Good Girl Gone Bad",
     "gender": "Женский",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_44_2025-12-21_16-23-35.jpg?raw=true",
@@ -1241,7 +1194,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 44,
     "name": "By Kilian - Black Phantom Memento Mori Anniversary Edition",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_45_2025-12-21_16-23-35.jpg?raw=true",
@@ -1253,7 +1205,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 45,
     "name": "By Kilian - Smoking Hot",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_46_2025-12-21_16-23-35.jpg?raw=true",
@@ -1265,7 +1216,6 @@ const catalog = [
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
   },
   {
-    "id": 46,
     "name": "Creed - Aventus",
     "gender": "Мужской",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_47_2025-12-21_16-23-35.jpg?raw=true",
@@ -1274,11 +1224,10 @@ const catalog = [
       "middle": "берёза, пачули, роза, жасмин",
       "base": "дубовый мох, амбра, мускус, ваниль"
     },
-    "hit": true,
+"hit": true,
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 47,
     "name": "Boadicea the Victorious - Nemer",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_48_2025-12-21_16-23-35.jpg?raw=true",
@@ -1290,7 +1239,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 48,
     "name": "Mancera - Red Tobacco",
     "gender": "Мужской",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_49_2025-12-21_16-23-35.jpg?raw=true",
@@ -1302,7 +1250,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 49,
     "name": "Creed - Viking",
     "gender": "Мужской",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_50_2025-12-21_16-23-35.jpg?raw=true",
@@ -1314,7 +1261,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 50,
     "name": "Tom Ford - Vanilla Sex",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_51_2025-12-21_16-23-35.jpg?raw=true",
@@ -1326,7 +1272,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 51,
     "name": "Marc-Antoine Barrois - Tilia",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_52_2025-12-21_16-23-35.jpg?raw=true",
@@ -1338,20 +1283,18 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 52,
     "name": "Marc-Antoine Barrois - Ganymede",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_53_2025-12-21_16-23-35.jpg?raw=true",
     "notes": {
-      "top": "шафран, italianский мандарин",
+      "top": "шафран, итальянский мандарин",
       "middle": "китайский османтус, бессмертник, лист фиалки",
       "base": "минеральные ноты, замша, Akigalawood, мускус, кедр, пачули"
     },
-    "hit": true,
+"hit": true,
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 53,
     "name": "Ex Nihilo - Blue Talisman",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_54_2025-12-21_16-23-35.jpg?raw=true",
@@ -1363,7 +1306,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 54,
     "name": "Initio Parfums Privés - Side Effect",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_55_2025-12-21_16-23-35.jpg?raw=true",
@@ -1375,7 +1317,6 @@ const catalog = [
     "prices": { "7": 700, "15": 1300, "30": 2500, "50": 4500, "100": 8000 }
   },
   {
-    "id": 55,
     "name": "Tom Ford - Cherry Smoke",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_56_2025-12-21_16-23-35.jpg?raw=true",
@@ -1393,7 +1334,6 @@ const catalog = [
     }
   },
   {
-    "id": 56,
     "name": "Richard - White Chocola",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_58_2025-12-21_16-23-35.jpg?raw=true",
@@ -1411,7 +1351,6 @@ const catalog = [
     }
   },
   {
-    "id": 57,
     "name": "Arabian Oud - Madawi Gold Edition",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_59_2025-12-21_16-23-35.jpg?raw=true",
@@ -1423,7 +1362,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 58,
     "name": "Ormonde Jayne - Montabaco Intensivo",
     "gender": "Мужской",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_60_2025-12-21_16-23-35.jpg?raw=true",
@@ -1435,7 +1373,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 59,
     "name": "Creed - Absolu Aventus",
     "gender": "Мужской",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_61_2025-12-21_16-23-35.jpg?raw=true",
@@ -1447,7 +1384,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 60,
     "name": "Tom Ford - Bitter Peach",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_57_2025-12-21_16-23-35.jpg?raw=true",
@@ -1459,7 +1395,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 61,
     "name": "Vilhelm Parfumerie - Dear Polly",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_62_2025-12-21_16-23-35.jpg?raw=true",
@@ -1471,7 +1406,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 62,
     "name": "Maison Crivelli - Hibiscus Mahajád",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_63_2025-12-21_16-23-35.jpg?raw=true",
@@ -1483,7 +1417,6 @@ const catalog = [
     "prices": { "7": 800, "15": 1500, "30": 2500, "50": 4500, "100": 8000 }
   },
   {
-    "id": 63,
     "name": "Louis Vuitton - Imagination",
     "gender": "Мужской",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_64_2025-12-21_16-23-35.jpg?raw=true",
@@ -1492,11 +1425,10 @@ const catalog = [
       "middle": "тунисский нероли, нигерийский имбирь, цейлонская корица",
       "base": "китайский чёрный чай, Ambroxan, гваяк, олибанум"
     },
-    "hit": true,
+"hit": true,
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
   },
   {
-    "id": 64,
     "name": "Initio Parfums Privés - Oud for Happiness",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_65_2025-12-21_16-23-35.jpg?raw=true",
@@ -1508,7 +1440,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 65,
     "name": "Ajmal - Amber Wood",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_66_2025-12-21_16-23-35.jpg?raw=true",
@@ -1520,7 +1451,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 66,
     "name": "Al-Rehab - Soft",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_67_2025-12-21_16-23-35.jpg?raw=true",
@@ -1532,7 +1462,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 67,
     "name": "Lalique - Encre Noire",
     "gender": "Мужской",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_68_2025-12-21_16-23-35.jpg?raw=true",
@@ -1544,7 +1473,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 68,
     "name": "Al-Rehab - Choco Musk",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_69_2025-12-21_16-23-35.jpg?raw=true",
@@ -1556,7 +1484,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 69,
     "name": "Amouage - Interlude Woman",
     "gender": "Женский",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_70_2025-12-21_16-23-35.jpg?raw=true",
@@ -1568,7 +1495,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 70,
     "name": "Yves Saint Laurent - Libre",
     "gender": "Женский",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_71_2025-12-21_16-23-35.jpg?raw=true",
@@ -1580,7 +1506,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 71,
     "name": "Tiffany & Co - Tiffany",
     "gender": "Женский",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_90_2025-12-21_16-23-35.jpg?raw=true",
@@ -1592,7 +1517,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 72,
     "name": "Byredo - Bal d'Afrique",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_72_2025-12-21_16-23-35.jpg?raw=true",
@@ -1604,7 +1528,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 73,
     "name": "Xerjoff - Erba Gold",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_73_2025-12-21_16-23-35.jpg?raw=true",
@@ -1616,7 +1539,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 74,
     "name": "Shaik - Opulent Shaik Classic No 77",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_74_2025-12-21_16-23-35.jpg?raw=true",
@@ -1628,7 +1550,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 75,
     "name": "Tom Ford - Tobacco Vanille",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_75_2025-12-21_16-23-35.jpg?raw=true",
@@ -1640,7 +1561,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 76,
     "name": "Nasomatto - Black Afgano",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_76_2025-12-21_16-23-35.jpg?raw=true",
@@ -1649,11 +1569,10 @@ const catalog = [
       "middle": "смолы, табак, кофейный аккорд",
       "base": "ладан, древесные аккорды, агаровое дерево (уд)"
     },
-    "hit": true,
+"hit": true,
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
   },
   {
-    "id": 77,
     "name": "Rosendo Mateu - Nº 5 Floral, Amber, Sensual Musk",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_77_2025-12-21_16-23-35.jpg?raw=true",
@@ -1665,7 +1584,6 @@ const catalog = [
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
   },
   {
-    "id": 78,
     "name": "Roja Dove - Isola Blu",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_78_2025-12-21_16-23-35.jpg?raw=true",
@@ -1677,7 +1595,6 @@ const catalog = [
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
   },
   {
-    "id": 79,
     "name": "Thomas Kosmala - No. 4 Après l’Amour",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_79_2025-12-21_16-23-35.jpg?raw=true",
@@ -1689,7 +1606,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 80,
     "name": "Orto Parisi - Brutus",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_80_2025-12-21_16-23-35.jpg?raw=true",
@@ -1701,7 +1617,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 81,
     "name": "Creed - Silver Mountain Water",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_81_2025-12-21_16-23-35.jpg?raw=true",
@@ -1713,7 +1628,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 82,
     "name": "Kayali Fragrances - Eden Juicy Apple 01",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_82_2025-12-21_16-23-35.jpg?raw=true",
@@ -1725,7 +1639,6 @@ const catalog = [
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
   },
   {
-    "id": 83,
     "name": "By Kilian - Apple Brandy on the Rocks",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_83_2025-12-21_16-23-35.jpg?raw=true",
@@ -1737,7 +1650,6 @@ const catalog = [
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
   },
   {
-    "id": 84,
     "name": "Hormone Paris - Gaba",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_84_2025-12-21_16-23-35.jpg?raw=true",
@@ -1746,12 +1658,11 @@ const catalog = [
       "middle": "османтус, жасмин самбак",
       "base": "Akigalawood, ambroxan, мускус"
     },
-    "new": true,
-    "hit": true,
+"new": true,
+"hit": true,
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
   },
   {
-    "id": 85,
     "name": "Le Labo - Another 13",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_85_2025-12-21_16-23-35.jpg?raw=true",
@@ -1763,7 +1674,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 86,
     "name": "Clive Christian - Blonde Amber",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_86_2025-12-21_16-23-35.jpg?raw=true",
@@ -1772,12 +1682,11 @@ const catalog = [
       "middle": "сухофрукты, белый табак, сандал, тубероза, шафран, османтус, корень ириса, жасмин",
       "base": "бобы тонка, ваниль, мирра, лабданум, пачули, мускус, кедр, ветивер"
     },
-    "hit": true,
-    "new": true,
+"hit": true,
+"new": true,
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
   },
   {
-    "id": 87,
     "name": "Maison Crivelli - Oud Cédénza",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_87_2025-12-21_16-23-35.jpg?raw=true",
@@ -1789,7 +1698,6 @@ const catalog = [
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
   },
   {
-    "id": 88,
     "name": "By Kilian - Angels' Share",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_88_2025-12-21_16-23-35.jpg?raw=true",
@@ -1798,11 +1706,10 @@ const catalog = [
       "middle": "корица, бобы тонка, дуб, гедион",
       "base": "ваниль, пралине, сандал, засахарённый миндаль"
     },
-    "new": true,
+"new": true,
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 89,
     "name": "La Sultane de Saba - Ambre Vanille Patchouli",
     "gender": "Унисекс",
     "img": "https://raw.githubusercontent.com/veronikakor326-cpu/BabaysPerfume/3018cf8c17fe66cd764b546ad38a503702d6ea81/images/catalog/photo_3_2025-12-28_04-44-35.jpg",
@@ -1811,12 +1718,11 @@ const catalog = [
       "middle": "ландыш, роза, сандал, амбра, пачули",
       "base": "бензоин, ваниль, бобы тонка"
     },
-    "hit": true,
-    "new": true,
+"hit": true,
+"new": true,
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 90,
     "name": "Roja Parfums - Diaghilev",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_1_2025-12-28_04-44-35.jpg?raw=true",
@@ -1825,11 +1731,10 @@ const catalog = [
       "middle": "персик, жасмин, тубероза, гелиотроп, роза, фиалка, иланг-иланг, чёрная смородина",
       "base": "бензоин, пачули, гвоздика, мускатный орех, кожа, лабданум, ветивер, дубовый мох, мускус, амбретта, стиракс, ваниль, гваяковое дерево, перуанский бальзам, цибетин"
     },
-    "new": true,
+"new": true,
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
   },
   {
-    "id": 91,
     "name": "Hormone Paris - Testosterone (This Is Not Testosterone)",
     "gender": "Унисекс",
     "img": "https://raw.githubusercontent.com/veronikakor326-cpu/BabaysPerfume/3018cf8c17fe66cd764b546ad38a503702d6ea81/images/catalog/photo_5_2025-12-28_04-44-35.jpg",
@@ -1842,7 +1747,6 @@ const catalog = [
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
   },
   {
-    "id": 92,
     "name": "Louis Vuitton - Symphony",
     "gender": "Унисекс",
     "img": "https://raw.githubusercontent.com/veronikakor326-cpu/BabaysPerfume/3018cf8c17fe66cd764b546ad38a503702d6ea81/images/catalog/photo_4_2025-12-28_04-44-35.jpg",
@@ -1851,12 +1755,11 @@ const catalog = [
       "middle": "бергамот",
       "base": "имбирь"
     },
-    "hit": true,
-    "new": true,
+"hit": true,
+"new": true,
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 93,
     "name": "Boadicea The Victorious - Blue Sapphire",
     "gender": "Унисекс",
     "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_2_2025-12-28_04-44-35.jpg?raw=true",
@@ -1865,11 +1768,10 @@ const catalog = [
       "middle": "турецкая роза, египетский жасмин, китайская магнолия, тунисский мирт, корица, кардамон, шафран",
       "base": "кашемировое дерево, индийский уд, индонезийские пачули, гаитянский ветивер, вирджинский кедр, испанский лабданум, канадская ель, амбра"
     },
-    "new": true,
+"new": true,
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
   },
   {
-    "id": 94,
     "name": "Tiziana Terenzi - Gumin",
     "gender": "Унисекс",
     "img": "https://raw.githubusercontent.com/veronikakor326-cpu/BabaysPerfume/3018cf8c17fe66cd764b546ad38a503702d6ea81/images/catalog/photo_7_2025-12-28_04-44-35.jpg",
@@ -1881,7 +1783,6 @@ const catalog = [
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 }
   },
   {
-    "id": 95,
     "name": "Orto Parisi - Terroni",
     "gender": "Унисекс",
     "img": "https://raw.githubusercontent.com/veronikakor326-cpu/BabaysPerfume/3018cf8c17fe66cd764b546ad38a503702d6ea81/images/catalog/photo_6_2025-12-28_04-44-35.jpg",
@@ -1893,10 +1794,9 @@ const catalog = [
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
   },
   {
-    "id": 96,
     "name": "Creed - Aventus Black (Limited Edition)",
     "gender": "Мужской",
-    "img": "https://github.com/veronikakor326-cpu/BabaysPerfume/blob/main/images/catalog/photo_5_2025-12-28_04-44-35.jpg?raw=true",
+    "img": "https://raw.githubusercontent.com/veronikakor326-cpu/BabaysPerfume/3018cf8c17fe66cd764b546ad38a503702d6ea81/images/catalog/photo_8_2025-12-28_04-44-35.jpg",
     "notes": {
       "top": "бергамот, чёрная смородина, яблоко, лимон, розовый перец",
       "middle": "ананас, пачули, марокканский жасмин",
@@ -2131,24 +2031,6 @@ function openModal(item){
 
   modalBack.style.display = "flex";
 }
-
-// Добавляем функцию "Поделиться"
-document.getElementById("shareBtn").onclick = async () => {
-  if (navigator.share && currentItem) {
-    try {
-      await navigator.share({
-        title: currentItem.name,
-        text: `Посмотри этот аромат в Babays Perfume: ${currentItem.name} (${currentItem.gender})`,
-        url: window.location.href,
-      });
-    } catch (err) {
-      console.log('Error sharing:', err);
-    }
-  } else {
-    alert("К сожалению, функция 'Поделиться' не поддерживается вашим браузером");
-  }
-};
-
 function addToFav(item){
   // Проверка объёма
   if (!selectedML) {
@@ -2208,8 +2090,9 @@ function renderFavs(){
           ${item.ml} мл — ${item.price} ₽
         </div>
       </div>
-      <button class="fav-remove" data-i="${i}" style="font-size:20px;background:transparent;border:0">✕</button>
+      <button class="fav-remove" data-i="${i}" style="font-size:20px;background:transparent;border:0;color:#c44;font-weight:700;cursor:pointer">✕</button>
     `;
+
     favList.appendChild(div);
   });
 
@@ -2587,6 +2470,5 @@ goToPage('home'); // Инициализация навигации и ренде
 
 </body>
 </html>
-
 
 
