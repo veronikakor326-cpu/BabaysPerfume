@@ -538,12 +538,7 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
     <div style="display:flex;flex-wrap:wrap">
       <div class="modal-photo" id="modalPhoto"></div>
       <div class="modal-body" style="flex:1">
-        <div style="display:flex;justify-content:space-between;align-items:start;">
-          <h2 class="name" id="modalName" style="margin:0 0 6px;font-family:'Playfair Display'"></h2>
-          <button id="shareBtn" style="background:transparent;border:0;cursor:pointer;padding:4px;color:var(--accent)">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
-          </button>
-        </div>
+        <h2 class="name" id="modalName" style="margin:0 0 6px;font-family:'Playfair Display'"></h2>
         <div class="meta" id="modalGender" style="margin-bottom:10px;color:#777"></div>
         <div class="notes" id="modalNotes" style="font-size:14px;color:#555;line-height:1.4"></div>
 
@@ -2037,24 +2032,6 @@ function openModal(item){
 
   modalBack.style.display = "flex";
 }
-
-// Добавляем функцию "Поделиться"
-document.getElementById("shareBtn").onclick = async () => {
-  if (navigator.share && currentItem) {
-    try {
-      await navigator.share({
-        title: currentItem.name,
-        text: `Посмотри этот аромат в Babays Perfume: ${currentItem.name} (${currentItem.gender})`,
-        url: window.location.href,
-      });
-    } catch (err) {
-      console.log('Error sharing:', err);
-    }
-  } else {
-    alert("К сожалению, функция 'Поделиться' не поддерживается вашим браузером");
-  }
-};
-
 function addToFav(item){
   // Проверка объёма
   if (!selectedML) {
@@ -2114,8 +2091,9 @@ function renderFavs(){
           ${item.ml} мл — ${item.price} ₽
         </div>
       </div>
-      <button class="fav-remove" data-i="${i}" style="font-size:20px;background:transparent;border:0">✕</button>
+      <button class="fav-remove" data-i="${i}" style="font-size:20px;background:transparent;border:0;color:#c44;font-weight:700;cursor:pointer">✕</button>
     `;
+
     favList.appendChild(div);
   });
 
