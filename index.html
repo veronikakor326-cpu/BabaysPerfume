@@ -8,11 +8,11 @@
 <style>
 /* --- МИНИМАЛИСТИЧНАЯ ЦВЕТОВАЯ ПАЛИТРА --- */
 :root{
-  --bg:#f7f4f0; /* Теплый бежевый фон */
-  --card:#ffffff; /* Чистый белый для карточек */
-  --muted:#8b8580; /* Теплый серый */
-  --accent:#b3873a; /* Золотистая бронза */
-  --dark:#2c2c2c; /* Глубокий графит для текста */
+  --bg:#f7f4f0;
+  --card:#ffffff;
+  --muted:#8b8580;
+  --accent:#b3873a;
+  --dark:#2c2c2c;
   --radius:14px;
 }
 *{box-sizing:border-box}
@@ -122,12 +122,35 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
   background-repeat:no-repeat; 
   background-color:var(--bg); 
   background-position:center;
+  position: relative;
 }
 
 .modal-body{padding:20px}
 
 .ml{padding:8px 12px;border-radius:8px;border:1px solid var(--muted);background:var(--bg);cursor:pointer;margin-right:6px;margin-bottom:6px;font-size:14px}
 .ml.selected{background:var(--accent);color:#fff;border-color:var(--accent);}
+
+/* Иконка поделиться */
+.share-icon {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 44px;
+  height: 44px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  color: white;
+  font-size: 22px;
+  transition: background 0.2s;
+}
+.share-icon:hover {
+  background: rgba(0,0,0,0.7);
+}
 
 /* --- Navigation & Pages --- */
 .bottom-nav {
@@ -509,7 +532,10 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
 
 <div class="modal-back" id="modalBack">
   <div class="modal" id="modalCard">
-    <div style="display:flex;flex-wrap:wrap">
+    <div style="position:relative; display:flex;flex-wrap:wrap">
+      <!-- Иконка поделиться вверху слева -->
+      <div class="share-icon" id="shareIcon" title="Поделиться ссылкой">↷</div>
+      
       <div class="modal-photo" id="modalPhoto"></div>
       <div class="modal-body" style="flex:1">
         <h2 class="name" id="modalName" style="margin:0 0 6px;font-family:'Playfair Display'"></h2>
@@ -529,25 +555,23 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
             <button class="ml">100</button>
           </div>
         </div>
-<div id="qualityBlock" style="margin-top:16px; display:none;">
-  <div style="font-size:13px;color:#888;margin-bottom:6px;">
-    Цена зависит от линейки и концентрации парфюмерных масел:
-  </div>
-  <div id="qualityOptions" style="display:flex;gap:8px;flex-wrap:wrap"></div>
-</div>
 
+        <div id="qualityBlock" style="margin-top:16px; display:none;">
+          <div style="font-size:13px;color:#888;margin-bottom:6px;">
+            Цена зависит от линейки и концентрации парфюмерных масел:
+          </div>
+          <div id="qualityOptions" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+        </div>
 
-        <div style="margin-top:20px;display:flex;gap:10px">
-          <button id="addFavBtn" style="flex:1;padding:12px 14px;border:0;cursor:pointer">
-            Добавить 
-          </button>
-          <button id="closeModal" style="padding:12px 14px;background:#eee;border-radius:10px;border:0;cursor:pointer;font-weight:600">
-            Закрыть
-          </button>
-          <button id="shareBtn" style="padding:12px 14px;background:var(--accent);color:#fff;border-radius:10px;border:0;cursor:pointer;font-weight:600">
-            Поделиться
+        <div style="margin-top:24px;">
+          <button id="addFavBtn" style="width:100%; padding:14px; border:0; cursor:pointer; border-radius:10px; font-weight:600; background:var(--dark); color:#fff;">
+            Добавить в набор
           </button>
         </div>
+
+        <button id="closeModal" style="margin-top:12px; width:100%; padding:12px; background:#eee; border:0; border-radius:10px; cursor:pointer; font-weight:600;">
+          Закрыть
+        </button>
       </div>
     </div>
   </div>
@@ -560,8 +584,8 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
       <button id="closeFav" style="background:var(--bg);border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700;color:var(--dark)">✕</button>
     </div>
 
-    <div id="giftBlock" style="padding:12px;border-bottom:1px solid #f3f3f3;background:#e9fce9;display:none">
-      <div style="font-size:16px;margin-bottom:4px;color:#189618;font-weight:600">🎁 Подарок </div>
+    <div id="giftBlock" style="padding:12px;border-bottom:1px solid #f3f3f3;background:#e9fce9;">
+      <div style="font-size:16px;margin-bottom:4px;color:#189618;font-weight:600">🎁 Подарок</div>
       <div style="color:#666;font-size:14px"> </div>
     </div>
 
@@ -681,9 +705,8 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
 </button>
 
 <script>
-const catalog = [
-
-  {
+// ВСТАВЬ СВОЙ МАССИВ ТОВАРОВ СЮДА
+const catalog = [{
     id: "Parfums de Marly - Layton",
     "name": "Parfums de Marly - Layton",
     "gender": "Унисекс",
@@ -1817,13 +1840,9 @@ const catalog = [
     },
 "new": true,
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
-  }
-];
+  }];
 
-
-// ────────────────────────────────────────────────
-// Функция создания slug
-// ────────────────────────────────────────────────
+// Генерация slug для поделиться
 function createSlug(str) {
   return str
     .toLowerCase()
@@ -1833,7 +1852,6 @@ function createSlug(str) {
     .replace(/^-+|-+$/g, '');
 }
 
-// Автоматически добавляем slug каждому товару
 catalog.forEach(item => {
   if (!item.slug) {
     let namePart = item.name;
@@ -1860,7 +1878,6 @@ const closeModalBtn = document.getElementById("closeModal");
 const addFavBtn = document.getElementById("addFavBtn");
 const qualityBlock = document.getElementById("qualityBlock");
 const qualityOptions = document.getElementById("qualityOptions");
-const shareBtn = document.getElementById("shareBtn");
 
 let selectedQualityIndex = null;
 
@@ -2044,14 +2061,15 @@ function openModal(item){
     };
   });
 
-  // Кнопка Поделиться
+  // Иконка поделиться вверху слева
+  const shareIcon = document.getElementById("shareIcon");
   const shareUrl = `${window.location.origin}${window.location.pathname}?product=${item.slug}`;
 
-  shareBtn.onclick = () => {
+  shareIcon.onclick = () => {
     navigator.clipboard.writeText(shareUrl).then(() => {
       alert(`Ссылка скопирована!\n${shareUrl}`);
     }).catch(() => {
-      prompt("Не удалось скопировать автоматически.\nСкопируй ссылку:", shareUrl);
+      prompt("Не удалось скопировать.\nСкопируй ссылку:", shareUrl);
     });
   };
 
@@ -2087,13 +2105,15 @@ function addToFav(item){
   });
 
   writeFavs(favs);
+  modalBack.style.display = "none";
 }
-
 
 function renderFavs(){
   const favs = readFavs();
   favList.innerHTML = "";
-  giftBlock.style.display = favs.length >= 2 ? "block" : "none";
+
+  // Подарок всегда виден
+  giftBlock.style.display = "block";
 
   if (!favs.length) {
     favList.innerHTML = `<div style="text-align:center; color:#888; padding:20px 0;">Ваша подборка пустая.</div>`;
@@ -2125,6 +2145,7 @@ function renderFavs(){
       favs.splice(btn.dataset.i,1);
       writeFavs(favs);
       renderFavs();
+      if (bookBack.style.display === "flex") calculateTotal();
     };
   });
 }
@@ -2186,8 +2207,7 @@ sendOrder.onclick = () => {
     .map((f, i) => `${i + 1}. ${f.name} (${f.ml} мл) — ${f.price} ₽`)
     .join("\n");
     
-  const giftText = favs.length >= 2 ? "\n🎁 Подарок" : "";
-
+  const giftText = "\n🎁 Подарок ";
 
   const text = encodeURIComponent(
 ` БРОНЬ ЗАКАЗА №${orderId}
@@ -2291,7 +2311,7 @@ addFavBtn.onclick = () => {
   modalBack.style.display = "none";
 };
 
-openBooking.onclick=()=>{if(!readFavs().length) return alert("Добавьте товар"); favBack.style.display="none"; bookBack.style.display="flex";}
+openBooking.onclick=()=>{if(!readFavs().length) return alert("Добавьте товар"); favBack.style.display="none"; bookBack.style.display="flex"; renderFavs(); calculateTotal();}
 
 function makeModalClosable(back,btn){
   btn.onclick=()=>back.style.display="none";
@@ -2471,4 +2491,3 @@ startAutoplay();
 
 </body>
 </html>
-
