@@ -122,7 +122,7 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
   background-repeat:no-repeat; 
   background-color:var(--bg); 
   background-position:center;
-  position: relative;
+  position:relative;
 }
 
 .modal-body{padding:20px}
@@ -130,26 +130,27 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
 .ml{padding:8px 12px;border-radius:8px;border:1px solid var(--muted);background:var(--bg);cursor:pointer;margin-right:6px;margin-bottom:6px;font-size:14px}
 .ml.selected{background:var(--accent);color:#fff;border-color:var(--accent);}
 
-/* Иконка поделиться */
-.share-icon {
+/* Кнопка поделиться слева от названия (в цвете сайта) */
+.share-btn-header {
   position: absolute;
-  top: 16px;
   left: 16px;
+  top: 16px;
   width: 44px;
   height: 44px;
-  background: rgba(0,0,0,0.5);
+  background: var(--accent);
+  color: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 24px;
   cursor: pointer;
-  z-index: 10;
-  color: white;
-  font-size: 22px;
-  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 5;
+  transition: transform 0.2s;
 }
-.share-icon:hover {
-  background: rgba(0,0,0,0.7);
+.share-btn-header:hover {
+  transform: scale(1.1);
 }
 
 /* --- Navigation & Pages --- */
@@ -532,15 +533,24 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
 
 <div class="modal-back" id="modalBack">
   <div class="modal" id="modalCard">
-    <div style="position:relative; display:flex;flex-wrap:wrap">
-      <!-- Иконка поделиться вверху слева -->
-      <div class="share-icon" id="shareIcon" title="Поделиться ссылкой">↷</div>
-      
+    <div style="position:relative; display:flex; flex-wrap:wrap">
+      <!-- Иконка поделиться слева от названия, в цвете сайта -->
+    <div class="share-btn-header" id="shareBtnHeader" title="Поделиться">
+  <svg viewBox="0 0 24 24" width="22" height="22"
+       fill="none" stroke="currentColor" stroke-width="2.2"
+       stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 16V3"/>
+    <path d="M8 7l4-4 4 4"/>
+    <path d="M4 13v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/>
+  </svg>
+</div>
+
+
       <div class="modal-photo" id="modalPhoto"></div>
       <div class="modal-body" style="flex:1">
-        <h2 class="name" id="modalName" style="margin:0 0 6px;font-family:'Playfair Display'"></h2>
-        <div class="meta" id="modalGender" style="margin-bottom:10px;color:#777"></div>
-        <div class="notes" id="modalNotes" style="font-size:14px;color:#555;line-height:1.4"></div>
+        <h2 class="name" id="modalName" style="margin:0 0 6px 60px;font-family:'Playfair Display'"></h2>
+        <div class="meta" id="modalGender" style="margin-bottom:10px;color:#777; margin-left:60px;"></div>
+        <div class="notes" id="modalNotes" style="font-size:14px;color:#555;line-height:1.4; margin-left:60px;"></div>
 
         <div id="mlChoice" style="margin-top:18px;display:block">
           <div id="priceBlock" style="margin-top:10px;font-size:20px;font-weight:700;color:var(--accent)">
@@ -584,9 +594,11 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
       <button id="closeFav" style="background:var(--bg);border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700;color:var(--dark)">✕</button>
     </div>
 
-    <div id="giftBlock" style="padding:12px;border-bottom:1px solid #f3f3f3;background:#e9fce9;">
+    <div id="giftBlock"
+     style="display:none;padding:12px;border-bottom:1px solid #f3f3f3;background:#e9fce9;">
+
       <div style="font-size:16px;margin-bottom:4px;color:#189618;font-weight:600">🎁 Подарок</div>
-      <div style="color:#666;font-size:14px"> </div>
+      <div style="color:#666;font-size:14px"></div>
     </div>
 
     <div class="fav-list" id="favList" style="padding:12px"></div>
@@ -607,12 +619,12 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
     <input id="bookName" type="text" style="width:100%;padding:12px;border-radius:10px;border:1px solid #ccc;margin-top:4px;font-size:15px">
 
     <label style="display:block;margin-top:14px;color:#555;font-size:14px;">Промокод (при наличии):</label>
-    <input id="bookPromo" type="text" placeholder="Введите промокод" style="width:100%;padding:12px;border-radius:10px;border:1px solid #ccc;margin-top:4px;font-size:15px">
+    <input id="bookPromo" type="text" placeholder=" " style="width:100%;padding:12px;border-radius:10px;border:1px solid #ccc;margin-top:4px;font-size:15px">
 
     <div id="totalBlock" style="padding:16px 0;border-top:1px solid #eee;margin-top:20px;font-size:16px">
       <div>Сумма товаров: <b id="sumPrice" style="color:var(--dark)">0 ₽</b></div>
       <div id="discountLine" style="display:none;color:#189618;font-weight:600;margin-top:4px">
-        Скидка по промокоду: −<span id="discountPrice">0</span> ₽
+        Скидка: −<span id="discountPrice">0</span> ₽
       </div>
       <div style="margin-top:12px;font-size:18px;font-weight:700">
         Предварительная стоимость : <b id="finalPrice" style="color:var(--accent)">0 ₽</b>
@@ -706,7 +718,8 @@ main.container{padding:16px; min-height: calc(100vh - 60px);}
 
 <script>
 // ВСТАВЬ СВОЙ МАССИВ ТОВАРОВ СЮДА
-const catalog = [{
+const catalog = [
+  {
     id: "Parfums de Marly - Layton",
     "name": "Parfums de Marly - Layton",
     "gender": "Унисекс",
@@ -1840,9 +1853,8 @@ const catalog = [{
     },
 "new": true,
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 }
-  }];
-
-// Генерация slug для поделиться
+  }
+];// Генерация slug для поделиться
 function createSlug(str) {
   return str
     .toLowerCase()
@@ -2061,11 +2073,11 @@ function openModal(item){
     };
   });
 
-  // Иконка поделиться вверху слева
-  const shareIcon = document.getElementById("shareIcon");
+  // Иконка поделиться слева от названия
+  const shareBtnHeader = document.getElementById("shareBtnHeader");
   const shareUrl = `${window.location.origin}${window.location.pathname}?product=${item.slug}`;
 
-  shareIcon.onclick = () => {
+  shareBtnHeader.onclick = () => {
     navigator.clipboard.writeText(shareUrl).then(() => {
       alert(`Ссылка скопирована!\n${shareUrl}`);
     }).catch(() => {
@@ -2113,7 +2125,8 @@ function renderFavs(){
   favList.innerHTML = "";
 
   // Подарок всегда виден
-  giftBlock.style.display = "block";
+  giftBlock.style.display = favs.length > 0 ? "block" : "none";
+
 
   if (!favs.length) {
     favList.innerHTML = `<div style="text-align:center; color:#888; padding:20px 0;">Ваша подборка пустая.</div>`;
@@ -2157,17 +2170,24 @@ function calculateTotal(){
   favs.forEach(item => sum += Number(item.price));
 
   let discount = 0;
+  let discountText = "";
   const promo = bookPromo.value.trim().toLowerCase();
 
-  if(promo === "babays"){
-    discount = Math.round(sum * 0.1);
+  if (promo === "staff" || promo === "сотрудник") {
+    discount = Math.round(sum * 0.15);
+    discountText = `Скидка сотрудника 15%`;
     document.getElementById("discountLine").style.display = "block";
+    document.getElementById("discountLine").innerHTML = `${discountText}: −<span id="discountPrice">${discount}</span> ₽`;
+  } else if (promo === "babays") {
+    discount = Math.round(sum * 0.1);
+    discountText = `Скидка по промокоду BABAYS 10%`;
+    document.getElementById("discountLine").style.display = "block";
+    document.getElementById("discountLine").innerHTML = `${discountText}: −<span id="discountPrice">${discount}</span> ₽`;
   } else {
     document.getElementById("discountLine").style.display = "none";
   }
 
   document.getElementById("sumPrice").textContent = sum + " ₽";
-  document.getElementById("discountPrice").textContent = discount;
   document.getElementById("finalPrice").textContent = (sum - discount) + " ₽";
 }
 
@@ -2196,9 +2216,14 @@ sendOrder.onclick = () => {
 
   const promo = bookPromo.value.trim().toLowerCase();
   let discount = 0;
+  let discountText = "";
 
-  if (promo === "babays") {
+  if (promo === "staff" || promo === "сотрудник") {
+    discount = Math.round(sum * 0.15);
+    discountText = `🎟 Скидка сотрудника 15%: −${discount} ₽\n`;
+  } else if (promo === "babays") {
     discount = Math.round(sum * 0.1);
+    discountText = `🎟 Скидка (BABAYS): −${discount} ₽\n`;
   }
 
   const final = sum - discount;
@@ -2218,7 +2243,7 @@ ${orderList}${giftText}
 
 ━━━━━━━━━━━━━━
 💰 Сумма: ${sum} ₽
-${discount ? `🎟 Скидка (BABAYS): −${discount} ₽\n` : ""}💳 Предварительная стоимость: ${final} ₽
+${discountText}💳 Предварительная стоимость: ${final} ₽
 ━━━━━━━━━━━━━━
 
 👤 Имя: ${bookName.value}
