@@ -3214,24 +3214,35 @@ if (aromaSearch) {
     });
   });
 }// ────────────────────────────────────────────────
-// DEEP LINK — должен быть САМЫМ ПОСЛЕДНИМ кодом
+// DEEP LINK — ставим САМЫМ ПОСЛЕДНИМ в скрипте
 // ────────────────────────────────────────────────
 window.addEventListener('load', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const productSlug = urlParams.get('product');
 
   if (productSlug) {
-    console.log("[Deep Link] Запрос на товар:", productSlug);
+    console.log("[DeepLink] Получен slug из URL:", productSlug);
 
-    const foundItem = catalog.find(item =>
-      item.slug && item.slug.toLowerCase() === productSlug.toLowerCase()
-    );
+    // Нормализуем slug для поиска (заменяем все виды тире на обычный -)
+    const normalizedSlug = productSlug
+      .toLowerCase()
+      .replace(/[\u2014\u2013\u2212—–−]/g, '-')   // все длинные/средние тире → обычный дефис
+      .replace(/[^a-z0-9-]/g, '');                // убираем всё лишнее
+
+    console.log("[DeepLink] Нормализованный slug для поиска:", normalizedSlug);
+
+    const foundItem = catalog.find(item => {
+      if (!item.slug) return false;
+      const itemNormalized = item.slug.toLowerCase().replace(/[\u2014\u2013\u2212—–−]/g, '-');
+      return itemNormalized === normalizedSlug;
+    });
 
     if (foundItem) {
-      console.log("[Deep Link] Открываем:", foundItem.name);
+      console.log("[DeepLink] Товар найден:", foundItem.name);
       openModal(foundItem);
     } else {
-      console.warn("[Deep Link] Не найден slug:", productSlug);
+      console.warn("[DeepLink] Товар НЕ найден по slug:", productSlug);
+      console.log("[DeepLink] Доступные slugs в каталоге:", catalog.map(i => i.slug).filter(Boolean));
     }
   }
 });
