@@ -2043,17 +2043,24 @@ priceCategory: 800
   }
 ];
 
-// Генерация slug — улучшенная версия
+// === ГЕНЕРАЦИЯ SLUG (обязательно замени старый блок на этот) ===
 catalog.forEach(item => {
-  if (!item.slug && item.name) {
+  if (item.name) {
     let slug = item.name
       .toLowerCase()
-      .replace(/[\s—–−]+/g, '-')        // все пробелы и тире → обычный дефис
-      .replace(/[^a-z0-9-]/g, '')       // убираем скобки, &, :, и т.д.
-      .replace(/-+/g, '-')              // убираем несколько дефисов подряд
-      .replace(/^-|-$/g, '');           // убираем дефисы в начале и конце
+      .replace(/[\s—–−\u2014\u2013\u2212]+/g, '-')   // все виды тире и пробелы → -
+      .replace(/[^a-z0-9-]/g, '')                     // оставляем только буквы, цифры, дефис
+      .replace(/-+/g, '-')                            // несколько дефисов → один
+      .replace(/^-|-$/g, '');                         // убираем дефисы по краям
 
     item.slug = slug;
+  }
+});
+// Проверка slug'ов (для отладки — можно потом удалить)
+console.log("=== SLUGS после генерации ===");
+catalog.forEach(item => {
+  if (item.name.includes("Testosterone") || item.name.includes("Dear Polly")) {
+    console.log(item.name + " → " + item.slug);
   }
 });
 
