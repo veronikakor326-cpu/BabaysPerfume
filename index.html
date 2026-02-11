@@ -2043,12 +2043,17 @@ priceCategory: 800
   }
 ];
 
-// Генерация slug
+// Генерация slug — улучшенная версия
 catalog.forEach(item => {
-  if (!item.slug) {
-    let namePart = item.name;
-    if (item.name.includes('—')) namePart = item.name.split('—')[1].trim();
-    item.slug = namePart.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
+  if (!item.slug && item.name) {
+    let slug = item.name
+      .toLowerCase()
+      .replace(/[\s—–−]+/g, '-')        // все пробелы и тире → обычный дефис
+      .replace(/[^a-z0-9-]/g, '')       // убираем скобки, &, :, и т.д.
+      .replace(/-+/g, '-')              // убираем несколько дефисов подряд
+      .replace(/^-|-$/g, '');           // убираем дефисы в начале и конце
+
+    item.slug = slug;
   }
 });
 
