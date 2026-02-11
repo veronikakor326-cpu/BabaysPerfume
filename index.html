@@ -2838,48 +2838,10 @@ scrollToTopBtn.onclick = () => {
     catalogPage.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
-const urlParams = new URLSearchParams(window.location.search);
-const productSlug = urlParams.get('product');
 
-if (productSlug) {
-  const foundItem = catalog.find(item => item.slug === productSlug);
-  if (foundItem) openModal(foundItem);
-}
 
 function writeOrders(orders) {
   localStorage.setItem(ORDERS_KEY, JSON.stringify(orders));
-}
-
-function renderOrders() {
-  const orders = readOrders().reverse();
-  const ordersList = document.getElementById("ordersList");
-  ordersList.innerHTML = "";
-
-  if (!orders.length) {
-    ordersList.innerHTML = `<div style="text-align:center; color:#888; padding:20px 0;">История заказов пуста.</div>`;
-    return;
-  }
-
-  orders.forEach((order, index) => {
-    const div = document.createElement("div");
-    div.className = "order-item";
-    div.innerHTML = `
-      <div style="font-weight:600; font-size:15px; color:var(--dark);">Заказ №${order.orderId}</div>
-      <div style="font-size:13px;color:#666">${order.date} • ${order.time}</div>
-      <div class="buttons">
-        <button class="view-order" data-index="${index}" style="flex:1;padding:8px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;">Просмотреть</button>
-      </div>
-    `;
-    ordersList.appendChild(div);
-  });
-
-  document.querySelectorAll(".view-order").forEach(btn => {
-    btn.onclick = () => {
-      const order = orders[btn.dataset.index];
-      renderOrderDetails(order);
-      document.getElementById("orderDetailsBack").style.display = "flex";
-    };
-  });
 }
 
 function addToFavFromHistory(item) {
@@ -3234,23 +3196,7 @@ startAutoplay();
 renderHomeSections();
 renderCatalog();
 // ЕДИНСТВЕННОЕ ИСПРАВЛЕНИЕ — ВКЛАДКА ЗАКАЗЫ
-navItems.forEach(item => {
-  item.onclick = () => {
-    const pageId = item.dataset.page;
 
-    if(pageId === "fav"){
-      renderFavs(); 
-      favBack.style.display="flex";
-    } else if (pageId === "support") {
-      supportBack.style.display="flex";
-    } else if (pageId === "orders") {
-      renderOrders();
-      document.getElementById("ordersBack").style.display = "flex";
-    } else {
-      goToPage(pageId);
-    }
-  };
-});
 document.getElementById('closeOrderDetails').onclick = () => {
   document.getElementById('orderDetailsBack').style.display = 'none';
 };
@@ -3267,7 +3213,28 @@ if (aromaSearch) {
       card.style.display = name.includes(query) ? '' : 'none';
     });
   });
-}
+}// ────────────────────────────────────────────────
+// DEEP LINK — должен быть САМЫМ ПОСЛЕДНИМ кодом
+// ────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const productSlug = urlParams.get('product');
+
+  if (productSlug) {
+    console.log("[Deep Link] Запрос на товар:", productSlug);
+
+    const foundItem = catalog.find(item =>
+      item.slug && item.slug.toLowerCase() === productSlug.toLowerCase()
+    );
+
+    if (foundItem) {
+      console.log("[Deep Link] Открываем:", foundItem.name);
+      openModal(foundItem);
+    } else {
+      console.warn("[Deep Link] Не найден slug:", productSlug);
+    }
+  }
+});
 </script>
 
 </body>
