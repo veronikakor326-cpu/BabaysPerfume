@@ -2199,26 +2199,54 @@ function renderHomeSections() {
 }
 
 function renderCatalog(){
-  grid.innerHTML="";
+  grid.innerHTML = "";
   const q = searchQuery.trim().toLowerCase();
 
-  let results = catalog.filter(item=>{
-    if(["Женский","Мужской","Унисекс"].includes(activeGender)&&item.gender!==activeGender) return false;
-    if(activeGender==="hit"&&!item.hit) return false;
-    if(activeGender==="new"&&!item.new) return false;
-    if(activeGender==="nabory"&&!item.nabory) return false;
-    if (q && !item.name.toLowerCase().includes(q)) return false;
-    return true;
+  let results = catalog.filter(item => {
+    // Фильтры по категориям (гендер, хит, новинки, наборы)
+    if (["Женский","Мужской","Унисекс"].includes(activeGender) && item.gender !== activeGender) return false;
+    if (activeGender === "hit" && !item.hit) return false;
+    if (activeGender === "new" && !item.new) return false;
+    if (activeGender === "nabory" && !item.nabory) return false;
+
+    // Если ничего не ищут — показываем всё
+    if (!q) return true;
+
+    const lowerQ = q;
+
+    // 1. Поиск по названию
+    const nameMatch = item.name.toLowerCase().includes(lowerQ);
+
+    // 2. Поиск по нотам (top + middle + base)
+    let notesMatch = false;
+    if (item.notes) {
+      const allNotes = [
+        item.notes.top    || "",
+        item.notes.middle || "",
+        item.notes.base   || ""
+      ].join(" ").toLowerCase();
+      notesMatch = allNotes.includes(lowerQ);
+    }
+
+    // 3. Поиск по составу наборов (AromaBox)
+    let aromasMatch = false;
+    if (item.aromas && Array.isArray(item.aromas)) {
+      aromasMatch = item.aromas.some(aroma => 
+        aroma.toLowerCase().includes(lowerQ)
+      );
+    }
+
+    // Оставляем товар, если совпало хотя бы в одном месте
+    return nameMatch || notesMatch || aromasMatch;
   });
 
-  if(!results.length){
-    grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;color:#777;padding:20px">По вашему запросу ничего не найдено.</div>`;
+  if (!results.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;color:#777;padding:20px">По вашему запросу ничего не найдено.</div>`;
     return;
   }
 
-  results.forEach(item=>grid.appendChild(createProductCard(item)));
+  results.forEach(item => grid.appendChild(createProductCard(item)));
 }
-
 function openModal(item){
   currentItem = item;
   selectedML = null;
