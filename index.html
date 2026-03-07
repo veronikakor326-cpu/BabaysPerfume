@@ -2509,19 +2509,36 @@ function renderFavs(){
       favList.appendChild(div);
     });
 
-    const aromas = favs.filter(f => !f.name.startsWith('AromaBox') && !f.name.startsWith('Набор') && !f.name.startsWith('Discovery') && f.ml === '7');
+    // Блок с предложением создать AromaBox
+    const aromas = favs.filter(f => 
+      !f.name.startsWith('AromaBox') && 
+      !f.name.startsWith('Набор') && 
+      !f.name.startsWith('Discovery') && 
+      f.ml === '7'
+    );
+
     if (aromas.length === 2) {
-      document.getElementById('suggestAromaBox').style.display = "block";
-      document.getElementById('suggestButtons').style.display = "flex";
+      // Показываем ТОЛЬКО если НЕТ ни одного предзаказа
+      const hasPreorder = aromas.some(a => a.preorder === true);
+      
+      if (!hasPreorder) {
+        document.getElementById('suggestAromaBox').style.display = "block";
+        document.getElementById('suggestButtons').style.display = "flex";
+      } else {
+        // Есть хотя бы один предзаказ → скрываем
+        document.getElementById('suggestAromaBox').style.display = "none";
+        document.getElementById('suggestButtons').style.display = "none";
+      }
     } else {
       document.getElementById('suggestAromaBox').style.display = "none";
       document.getElementById('suggestButtons').style.display = "none";
     }
 
-    document.querySelectorAll(".fav-remove").forEach(btn=>{
-      btn.onclick=()=>{
+    // Обработчик удаления товаров (оставляем как было)
+    document.querySelectorAll(".fav-remove").forEach(btn => {
+      btn.onclick = () => {
         const favs = readFavs();
-        favs.splice(btn.dataset.i,1);
+        favs.splice(btn.dataset.i, 1);
         writeFavs(favs);
         renderFavs();
         if (bookBack.style.display === "flex") calculateTotal();
@@ -2539,29 +2556,66 @@ document.getElementById('suggestAromaBox').onclick = () => {
 
 document.getElementById('agreeSuggest').onclick = () => {
   const favs = readFavs();
-  const aromas = favs.filter(f => !f.name.startsWith('AromaBox') && !f.name.startsWith('Набор') && !f.name.startsWith('Discovery') && f.ml === '7');
-  if (aromas.length === 2) {
-    selectedAromas = aromas.map(f => {
-      return catalog.find(c => c.name === f.name);
-    });
-    const lowCount = aromas.filter(a => a.priceCategory === 550).length;
-    const highCount = aromas.filter(a => a.priceCategory === 800).length;
-    if (lowCount === 3) selectedFormat = 'standard';
-    else if (lowCount === 2 && highCount === 1) selectedFormat = 'mix';
-    else if (lowCount === 1 && highCount === 2) selectedFormat = 'hit';
-    else if (highCount === 3) selectedFormat = 'premium';
-    else selectedFormat = 'mix';
+  
+  const aromasInCart = favs.filter(f =>
+    !f.name.startsWith('AromaBox') &&
+    !f.name.startsWith('Набор') &&
+    !f.name.startsWith('Discovery') &&
+    f.ml === '7'
+  );
 
-    const newFavs = favs.filter(f => f.name.startsWith('AromaBox') || f.name.startsWith('Набор') || f.name.startsWith('Discovery'));
-    writeFavs(newFavs);
+  // Если не ровно 2 — выходим (защита)
+  if (aromasInCart.length !== 2) return;
 
-    document.getElementById("aromaBoxBack").style.display = "flex";
-    showStep(1);
-    renderSelectedSlots();
-    renderAromaGrid();
-    updateHints();
-    favBack.style.display = "none";
+  // Запрет, если хотя бы один в предзаказе
+  if (aromasInCart.some(a => a.preorder === true)) {
+    alert('Нельзя создать AromaBox, если хотя бы один аромат в предзаказе');
+    return;
   }
+
+  // Находим полные объекты из каталога
+  selectedAromas = aromasInCart.map(cartItem =>
+    catalog.find(c => c.name === cartItem.name)
+  ).filter(Boolean); // убираем undefined, если вдруг не нашли
+
+  if (selectedAromas.length !== 2) {
+    alert('Не удалось найти оба аромата в каталоге');
+    return;
+  }
+
+  // Считаем количество классики и премиума
+  const lowCount = selectedAromas.filter(a => a.priceCategory === 550).length;
+  const highCount = selectedAromas.filter(a => a.priceCategory === 800).length;
+
+  // Определяем формат бокса
+  if (lowCount === 2 && highCount === 0) {
+    selectedFormat = 'standard';
+  } else if (lowCount === 1 && highCount === 1) {
+    selectedFormat = 'mix';
+  } else if (lowCount === 0 && highCount === 2) {
+    selectedFormat = 'premium'; // или 'hit' — под твою логику
+  } else {
+    selectedFormat = 'mix'; // fallback
+  }
+
+  // Удаляем эти два аромата из корзины
+  const newFavs = favs.filter(f => 
+    !aromasInCart.some(a => a.name === f.name && a.ml === '7')
+  );
+  writeFavs(newFavs);
+
+  // Открываем конструктор бокса
+  document.getElementById("aromaBoxBack").style.display = "flex";
+  showStep(1); // или 0 — смотря с какого шага хочешь начинать
+
+  renderSelectedSlots();
+  renderAromaGrid();
+  updateHints();
+
+  // Скрываем предложение и модалку корзины
+  document.getElementById('suggestAromaBox').style.display = "none";
+  document.getElementById('suggestButtons').style.display = "none";
+  favBack.style.display = "none";
 };
 
 document.getElementById('disagreeSuggest').onclick = () => {
