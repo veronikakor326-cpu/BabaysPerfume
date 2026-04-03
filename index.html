@@ -2618,7 +2618,7 @@ document.getElementById('disagreeSuggest').onclick = () => {
   document.getElementById('suggestButtons').style.display = "none";
 };
 
-function calculateTotal(){
+function calculateTotal() {
   const favs = readFavs();
 
   let sum = 0;
@@ -2628,19 +2628,41 @@ function calculateTotal(){
     const price = Number(item.price);
     sum += price;
 
-    if (!item.name.startsWith('AromaBox') && !item.name.startsWith('Набор') && !item.name.startsWith('Discovery')) {
+    // Только обычные ароматы участвуют в скидке (не AromaBox)
+    if (!item.name.startsWith('AromaBox') && 
+        !item.name.startsWith('Набор') && 
+        !item.name.startsWith('Discovery')) {
       discountBase += price;
     }
   });
 
   let discount = 0;
+  let discountText = "";
+  
   const promo = bookPromo.value.trim().toLowerCase();
 
-  if (promo === "staff" || promo === "сотрудник") {
-    discount = Math.round(discountBase * 0.15);
-  } else if (promo === "babays") {
-    discount = Math.round(discountBase * 0.1);
+  // ====================== ВСЕ ПРОМОКОДЫ ЗДЕСЬ ======================
+  const promoList = {
+    "babays":      { percent: 10,  text: "Скидка BABAYS 10%" },
+    "staff":       { percent: 15,  text: "Скидка сотрудника 15%" },
+    "сотрудник":   { percent: 15,  text: "Скидка сотрудника 15%" },
+    
+    // ←←← Добавляйте новые промокоды сюда ↓↓↓
+     //"newyear":     { percent: 12,  text: "Скидка NEWYEAR 12%" },
+     //"spring2026":  { percent: 15,  text: "Весенняя скидка 15%" },
+     //"vip":         { percent: 20,  text: "VIP скидка 20%" },
+     //"first":       { percent: 8,   text: "Скидка для первого заказа 8%" },
+     //"love":        { percent: 10,  text: "Любовная скидка 10%" },
+    "black":       { percent: 5,  text: "Скидка black 5%" }
+    // ←←← Добавляйте новые промокоды выше ↑↑↑
+  };
+
+  // Применяем скидку, если промокод найден
+  if (promoList[promo]) {
+    discount = Math.round(discountBase * (promoList[promo].percent / 100));
+    discountText = promoList[promo].text + `: −${discount} ₽`;
   }
+  // =================================================================
 
   const final = sum - discount;
 
@@ -2652,10 +2674,7 @@ function calculateTotal(){
     sumLine.style.display = "block";
     discountLine.style.display = "block";
     sumLine.innerHTML = `Сумма товаров: <b id="sumPrice" style="color:var(--dark)">${sum} ₽</b>`;
-    const txt = promo.includes("staff") || promo === "сотрудник" 
-      ? `Скидка сотрудника 15%: −${discount} ₽` 
-      : `Скидка BABAYS 10%: −${discount} ₽`;
-    discountLine.innerHTML = txt;
+    discountLine.innerHTML = discountText;
   } else {
     sumLine.style.display = "none";
     discountLine.style.display = "none";
