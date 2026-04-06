@@ -329,6 +329,14 @@ header.appbar {
     <div class="horizontal-scroll-container" style="margin-bottom:20px;">
       <div class="horizontal-scroll-content" id="naboryProducts"></div>
     </div>
+<!-- Новый раздел АКЦИИ -->
+<div class="home-section-header">
+  <h3 class="home-section-title">Специальные предложения</h3>
+  <a href="#" class="view-all-btn" data-filter="action">Посмотреть все</a>
+</div>
+<div class="horizontal-scroll-container" style="margin-bottom:30px;">
+  <div class="horizontal-scroll-content" id="actionProducts"></div>
+</div>
 
     <div class="home-section-header">
       <h3 class="home-section-title">✨ Хиты продаж</h3>
@@ -372,6 +380,7 @@ header.appbar {
     <select id="filterSelect" class="filter-select">
       <option value="all">Все ароматы</option>
       <option value="hit">Хиты продаж</option>
+<option value="action">Специальные предложения</option>
       <option value="new">Новинки</option>
       <option value="nabory">Наборы</option>
       <option value="Женский"> Женские</option>
@@ -438,11 +447,11 @@ header.appbar {
   </div>
 </div>
 
-<!-- Модальное окно "Мой набор" (корзина) -->
+<!-- Модальное окно "Корзина" (корзина) -->
 <div class="modal-back" id="favBack">
   <div class="modal" id="favModal" style="max-width:500px;padding-bottom:10px">
     <div style="padding:14px 16px;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center">
-      <div style="font-weight:700;font-size:18px;font-family:'Playfair Display'">Мой набор</div>
+      <div style="font-weight:700;font-size:18px;font-family:'Playfair Display'"> Корзина </div>
       <button id="closeFav" style="background:var(--bg);border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700;color:var(--dark)">✕</button>
     </div>
 
@@ -462,7 +471,7 @@ header.appbar {
     </div>
 
     <div style="padding:16px">
-      <button id="openBooking" style="width:100%;padding:14px;border:0;cursor:pointer">Продолжить</button>
+      <button id="openBooking" style="width:100%;padding:14px;border:0;cursor:pointer">Перейти к оформлению</button>
     </div>
   </div>
 </div>
@@ -632,7 +641,7 @@ header.appbar {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
       <path stroke-linecap="round" stroke-linejoin="round" d="M12 21s-7-4.5-9-8.5C1.5 8 4.5 5 8 6.5 10 7.5 12 10 12 10s2-2.5 4-3.5C19.5 5 22.5 8 21 12.5c-2 4-9 8.5-9 8.5z"/>
     </svg>
-    Мой набор
+    Корзина
     <div class="heart-badge" id="favCount">0</div>
   </div>
 
@@ -1252,6 +1261,8 @@ priceCategory: 550,
     },
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 },
 priceCategory: 550,
+weekDiscount: 3,      // скидка 3 
+discountLabel: "Скидка −3%"
   },
   {
     "name": "Creed - Viking",
@@ -1325,6 +1336,8 @@ priceCategory: 550,
     },
     "prices": { "7": 700, "15": 1300, "30": 2500, "50": 4500, "100": 8000 },
 priceCategory: 800,
+weekDiscount: 3,      // скидка 3 
+discountLabel: "Скидка −3%"
   },
   {
     "name": "Tom Ford - Cherry Smoke",
@@ -1480,6 +1493,8 @@ priceCategory: 550,
     },
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 },
 priceCategory: 550,
+weekDiscount: 3,      // скидка 3 
+discountLabel: "Скидка −3%"
   },
   {
     "name": "Lalique - Encre Noire",
@@ -1552,6 +1567,8 @@ priceCategory: 550,
     },
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 },
 priceCategory: 550,
+weekDiscount: 3,      // скидка 3 
+discountLabel: "Скидка −3%"
   },
   {
     "name": "Xerjoff - Erba Gold",
@@ -1601,6 +1618,8 @@ priceCategory: 550,
 "hit": true,
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 },
 priceCategory: 800,
+weekDiscount: 3,      // скидка 3 
+discountLabel: "Скидка −3%"
   },
   {
     "name": "Rosendo Mateu - Nº 5 Floral, Amber, Sensual Musk",
@@ -1750,6 +1769,8 @@ priceCategory: 800,
 "new": true,
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 },
 priceCategory: 550,
+weekDiscount: 3,      // скидка 3 
+discountLabel: "Скидка −3%"
   },
   {
     "name": "La Sultane de Saba - Ambre Vanille Patchouli",
@@ -1804,6 +1825,8 @@ priceCategory: 800,
 "new": true,
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 },
 priceCategory: 800,
+weekDiscount: 10,           // Аромат недели
+  discountLabel: "АРОМАТ НЕДЕЛИ -10%"
   },
   {
     "name": "Boadicea The Victorious - Blue Sapphire",
@@ -1829,6 +1852,8 @@ priceCategory: 800,
     },
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 },
 priceCategory: 550,
+weekDiscount: 3,      // скидка 3 
+discountLabel: "Скидка −3%"
   },
   {
     "name": "Orto Parisi - Terroni",
@@ -1920,6 +1945,8 @@ priceCategory: 800,
 "hit": true,
     "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 },
 priceCategory: 550,
+weekDiscount: 3,      // скидка 3 
+discountLabel: "Скидка −3%"
   },
   {
     "name": "Parfums de Marly - Delina Exclusif",
@@ -1987,6 +2014,8 @@ priceCategory: 550,
 "new": true,
   "prices": { "7": 550, "15": 1100, "30": 1980, "50": 2750, "100": 4950 },
 priceCategory: 550,
+weekDiscount: 3,      // скидка 3 
+discountLabel: "Скидка −3%"
 },
  {
   "name": "Ex Nihilo - Fleur Narcotique Extrait",
@@ -2013,6 +2042,8 @@ priceCategory: 800,
     "new": true,
   "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 },
 //priceCategory: 800,
+weekDiscount: 3,      // скидка 3 
+discountLabel: "Скидка −3%"
   },
   {
     "name": "Puredistance - White №6",
@@ -2210,10 +2241,45 @@ let searchQuery="";
 function createProductCard(item) {
   const div = document.createElement("div");
   div.className = "card";
+
   let badges = "";
-if (item.hit) badges += `<div style="position:absolute;top:8px;left:8px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:6px;font-size:11px">ХИТ</div>`;
-if (item.new) badges += `<div style="position:absolute;top:32px;left:8px;background:var(--dark);color:#fff;padding:2px 8px;border-radius:6px;font-size:11px">NEW</div>`;
-if (item.preorder) badges += `<div style="position:absolute;top:56px;left:8px;background:#c0392b;color:#fff;padding:2px 8px;border-radius:6px;font-size:11px">ПРЕДЗАКАЗ</div>`;
+
+  // Существующие бейджи (ХИТ, NEW, ПРЕДЗАКАЗ)
+  if (item.hit) {
+    badges += `<div style="position:absolute;top:8px;left:8px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;">ХИТ</div>`;
+  }
+  if (item.new) {
+    badges += `<div style="position:absolute;top:32px;left:8px;background:var(--dark);color:#fff;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;">NEW</div>`;
+  }
+  if (item.preorder) {
+    badges += `<div style="position:absolute;top:56px;left:8px;background:#c0392b;color:#fff;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;">ПРЕДЗАКАЗ</div>`;
+  }
+
+  // === ПЛАШКА СКИДКИ с процентом (−10% / −3%) ===
+  if (item.weekDiscount && item.weekDiscount > 0) {
+    const discountText = `−${item.weekDiscount}%`;
+    const isBigDiscount = item.weekDiscount >= 10;   // Аромат недели — ярче
+
+    badges += `
+      <div style="position:absolute; top:8px; right:8px; 
+                  background: ${isBigDiscount ? '#e74c3c' : '#f39c12'};
+                  color: #fff; 
+                  padding: 5px 11px; 
+                  border-radius: 50%; 
+                  font-size: 13px; 
+                  font-weight: 800; 
+                  box-shadow: 0 3px 10px rgba(0,0,0,0.35);
+                  min-width: 38px; 
+                  height: 38px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  line-height: 1;
+                  z-index: 10;">
+        ${discountText}
+      </div>`;
+  }
+
   if (item.isConstructor) {
     div.style.width = "160px";
     div.style.minWidth = "160px";
@@ -2227,61 +2293,76 @@ if (item.preorder) badges += `<div style="position:absolute;top:56px;left:8px;ba
     div.style.textAlign = "center";
     div.style.cursor = "pointer";
     div.style.boxShadow = "0 8px 24px rgba(179,135,58,0.4)";
+
     div.innerHTML = `
       <div style="font-size:48px; margin-bottom:12px;">🎁</div>
       <div style="font-size:18px; font-weight:700; margin-bottom:8px;">Собрать свой AromaBox</div>
-      <div style="font-size:13px; opacity:0.9; padding:0 12px;">
-        
-      </div>
+      <div style="font-size:13px; opacity:0.9; padding:0 12px;"></div>
     `;
     div.onclick = () => {
       document.getElementById("aromaBoxBack").style.display = "flex";
     };
   } else {
-  // Всегда только гендер — для всех карточек (включая наборы)
-  const metaContent = item.gender || '';
+    const metaContent = item.gender || '';
 
-  div.innerHTML = `
-    <div class="img" style="background-image:url('${item.img}')"></div>
-    ${badges}
-    <div class="info">
-      <div class="name">${item.name}</div>
-      <div class="meta">${metaContent}</div>  <!-- ← ТОЛЬКО гендер, состав НЕ пишем -->
-    </div>
-  `;
-  div.onclick = () => openModal(item);
-}
+    div.innerHTML = `
+      <div class="img" style="background-image:url('${item.img}')"></div>
+      ${badges}
+      <div class="info">
+        <div class="name">${item.name}</div>
+        <div class="meta">${metaContent}</div>
+      </div>
+    `;
+    div.onclick = () => openModal(item);
+  }
+
   return div;
 }
-
 function renderHomeSections() {
-  // Хиты — оставляем как есть
+  // Хиты
   hitProducts.innerHTML = "";
   catalog.filter(i => i.hit).forEach(i => hitProducts.appendChild(createProductCard(i)));
 
-  // Новинки — добавляем .reverse()
+  // Новинки (с реверсом)
   newProducts.innerHTML = "";
   catalog
-    .filter(i => i.new)                     // или i.new === true — как у тебя написано
-    .reverse()                              // ← это ключевая строка
+    .filter(i => i.new)
+    .reverse()
     .forEach(i => newProducts.appendChild(createProductCard(i)));
 
-  // Наборы — оставляем как есть
+  // Наборы
   naboryProducts.innerHTML = "";
   const constructor = catalog.find(i => i.isConstructor);
   if (constructor) naboryProducts.appendChild(createProductCard(constructor));
   catalog.filter(i => i.nabory && !i.isConstructor).forEach(i => naboryProducts.appendChild(createProductCard(i)));
+
+  // === НОВЫЙ РАЗДЕЛ — АКЦИИ ===
+// === РАЗДЕЛ АКЦИИ на главной — большая скидка идёт первой ===
+const actionProducts = document.getElementById("actionProducts");
+if (actionProducts) {
+  actionProducts.innerHTML = "";
+
+  let actionItems = catalog.filter(i => i.weekDiscount && i.weekDiscount > 0);
+
+  // Сортировка: товар с большей скидкой всегда первый (10% → 3%)
+  actionItems.sort((a, b) => {
+    return (b.weekDiscount || 0) - (a.weekDiscount || 0);
+  });
+
+  actionItems.forEach(i => actionProducts.appendChild(createProductCard(i)));
 }
-function renderCatalog(){
+}
+function renderCatalog() {
   grid.innerHTML = "";
   const q = searchQuery.trim().toLowerCase();
 
   let results = catalog.filter(item => {
-    // Фильтры по категориям (гендер, хит, новинки, наборы)
+    // Фильтры по категориям
     if (["Женский","Мужской","Унисекс"].includes(activeGender) && item.gender !== activeGender) return false;
     if (activeGender === "hit" && !item.hit) return false;
     if (activeGender === "new" && !item.new) return false;
     if (activeGender === "nabory" && !item.nabory) return false;
+    if (activeGender === "action" && (!item.weekDiscount || item.weekDiscount <= 0)) return false;
 
     // Если ничего не ищут — показываем всё
     if (!q) return true;
@@ -2291,39 +2372,46 @@ function renderCatalog(){
     // 1. Поиск по названию
     const nameMatch = item.name.toLowerCase().includes(lowerQ);
 
-    // 2. Поиск по нотам (top + middle + base)
+    // 2. Поиск по нотам
     let notesMatch = false;
     if (item.notes) {
       const allNotes = [
-        item.notes.top    || "",
+        item.notes.top || "",
         item.notes.middle || "",
-        item.notes.base   || ""
+        item.notes.base || ""
       ].join(" ").toLowerCase();
       notesMatch = allNotes.includes(lowerQ);
     }
 
-    // 3. Поиск по составу наборов (AromaBox)
+    // 3. Поиск по составу наборов
     let aromasMatch = false;
     if (item.aromas && Array.isArray(item.aromas)) {
-      aromasMatch = item.aromas.some(aroma => 
+      aromasMatch = item.aromas.some(aroma =>
         aroma.toLowerCase().includes(lowerQ)
       );
     }
 
-    // Оставляем товар, если совпало хотя бы в одном месте
     return nameMatch || notesMatch || aromasMatch;
   });
+
+  // === СОРТИРОВКА ДЛЯ РАЗДЕЛА АКЦИИ ===
+  if (activeGender === "action") {
+    results.sort((a, b) => {
+      return (b.weekDiscount || 0) - (a.weekDiscount || 0);   // большая скидка первой
+    });
+  }
+
+  // Для новинок — новые сверху
+  if (activeGender === "new") {
+    results = results.reverse();
+  }
 
   if (!results.length) {
     grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;color:#777;padding:20px">По вашему запросу ничего не найдено.</div>`;
     return;
   }
 
-  if(activeGender === "new"){
-  results = results.reverse();
-}
-
-results.forEach(item => grid.appendChild(createProductCard(item)));
+  results.forEach(item => grid.appendChild(createProductCard(item)));
 }
 function openModal(item){
   currentItem = item;
@@ -2431,32 +2519,27 @@ if (item.notes) {
   modalBack.style.display = "flex";
 }
 
-function addToFav(item){
-  let finalPrice, mlText;
+function addToFav(item) {
+  let finalPrice, mlText, originalPrice = null;
 
   if (item.nabory === true) {
     finalPrice = item.prices.fixed;
     mlText = item.mlFixed || "фиксированный";
   } else {
-    if (!selectedML) {
-      alert("Выберите объём");
-      return;
-    }
+    if (!selectedML) return alert("Выберите объём");
 
-    const prices = item.prices[selectedML];
-    let finalPriceTemp;
+    let basePrice = Array.isArray(item.prices[selectedML]) 
+      ? item.prices[selectedML][selectedQualityIndex || 0] 
+      : item.prices[selectedML];
 
-    if (Array.isArray(prices)) {
-      if (selectedQualityIndex === null) {
-        alert("Выберите качество");
-        return;
-      }
-      finalPriceTemp = prices[selectedQualityIndex];
+    // Применяем скидку "Аромат недели" или 3%
+    if (item.weekDiscount && item.weekDiscount > 0) {
+      finalPrice = Math.round(basePrice * (1 - item.weekDiscount / 100));
+      originalPrice = basePrice;
     } else {
-      finalPriceTemp = prices;
+      finalPrice = basePrice;
     }
 
-    finalPrice = finalPriceTemp;
     mlText = selectedML;
   }
 
@@ -2467,8 +2550,10 @@ function addToFav(item){
     img: item.img,
     ml: mlText,
     price: finalPrice,
+    originalPrice: originalPrice,        // для зачёркивания
+    discountLabel: item.discountLabel || null,
     aromas: item.aromas || [],
-    preorder: !!item.preorder          // ← ДОБАВЛЕНО — теперь флаг сохраняется
+    preorder: !!item.preorder
   });
 
   writeFavs(favs);
@@ -2621,76 +2706,75 @@ document.getElementById('disagreeSuggest').onclick = () => {
 function calculateTotal() {
   const favs = readFavs();
 
-  let sum = 0;
-  let discountBase = 0;
+  let totalSum = 0;           // общая сумма к оплате
+  let promoBase = 0;          // база для промокода (только безакционные товары)
+  let actionDiscount = 0;     // сумма скидок по акциям (3% и 10%)
 
   favs.forEach(item => {
     const price = Number(item.price);
-    sum += price;
+    totalSum += price;
 
-    // Только обычные ароматы участвуют в скидке (не AromaBox)
-    if (!item.name.startsWith('AromaBox') && 
-        !item.name.startsWith('Набор') && 
-        !item.name.startsWith('Discovery')) {
-      discountBase += price;
+    // Если у товара была акционная скидка (originalPrice существует)
+    if (item.originalPrice) {
+      actionDiscount += (Number(item.originalPrice) - price);
+    } 
+    // Иначе — этот товар участвует в промокоде
+    else if (!item.name.startsWith('AromaBox') &&
+             !item.name.startsWith('Набор') &&
+             !item.name.startsWith('Discovery')) {
+      promoBase += price;
     }
   });
 
-  let discount = 0;
-  let discountText = "";
-  
+  // === Промокод ===
+  let promoDiscount = 0;
+  let promoText = "";
+
   const promo = bookPromo.value.trim().toLowerCase();
 
-  // ====================== ВСЕ ПРОМОКОДЫ ЗДЕСЬ ======================
   const promoList = {
-    "babays":      { percent: 10,  text: "Скидка BABAYS 10%" },
-    "staff":       { percent: 15,  text: "Скидка сотрудника 15%" },
-    "сотрудник":   { percent: 15,  text: "Скидка сотрудника 15%" },
-    
-    // ←←← Добавляйте новые промокоды сюда ↓↓↓
-     //"newyear":     { percent: 12,  text: "Скидка NEWYEAR 12%" },
-     //"spring2026":  { percent: 15,  text: "Весенняя скидка 15%" },
-     //"vip":         { percent: 20,  text: "VIP скидка 20%" },
-     //"first":       { percent: 8,   text: "Скидка для первого заказа 8%" },
-     //"love":        { percent: 10,  text: "Любовная скидка 10%" },
-    "black":       { percent: 5,  text: "Скидка black 5%" }
-    // ←←← Добавляйте новые промокоды выше ↑↑↑
+    "babays":    { percent: 10, text: "Скидка BABAYS 10%" },
+    "staff":     { percent: 15, text: "Скидка сотрудника 15%" },
+    "сотрудник": { percent: 15, text: "Скидка сотрудника 15%" },
+    "black":     { percent: 5,  text: "Скидка black 5%" }
+    // Добавляй новые промокоды сюда
   };
 
-  // Применяем скидку, если промокод найден
   if (promoList[promo]) {
-    discount = Math.round(discountBase * (promoList[promo].percent / 100));
-    discountText = promoList[promo].text + `: −${discount} ₽`;
+    promoDiscount = Math.round(promoBase * (promoList[promo].percent / 100));
+    promoText = promoList[promo].text + `: −${promoDiscount} ₽`;
   }
-  // =================================================================
 
-  const final = sum - discount;
+  const final = totalSum - promoDiscount;
 
+  // === Отображение ===
   const sumLine = document.getElementById("sumLine");
   const discountLine = document.getElementById("discountLine");
-  const finalPrice = document.getElementById("finalPrice");
+  const finalPriceEl = document.getElementById("finalPrice");
 
-  if (discount > 0) {
-    sumLine.style.display = "block";
+  let discountHTML = "";
+
+  if (actionDiscount > 0) {
+    discountHTML += `Скидка по акции: <b style="color:#189618">−${actionDiscount} ₽</b><br>`;
+  }
+  if (promoDiscount > 0) {
+    discountHTML += promoText;
+  }
+
+  // Сумма товаров
+  sumLine.style.display = "block";
+  sumLine.innerHTML = `Сумма товаров: <b id="sumPrice" style="color:var(--dark)">${totalSum} ₽</b>`;
+
+  // Блок скидок
+  if (discountHTML) {
     discountLine.style.display = "block";
-    sumLine.innerHTML = `Сумма товаров: <b id="sumPrice" style="color:var(--dark)">${sum} ₽</b>`;
-    discountLine.innerHTML = discountText;
+    discountLine.innerHTML = discountHTML;
   } else {
-    sumLine.style.display = "none";
     discountLine.style.display = "none";
   }
 
-  finalPrice.textContent = `${final} ₽`;
+  finalPriceEl.textContent = `${final} ₽`;
 }
-
-document.querySelectorAll(".deliveryBtn").forEach(btn=>{
-  btn.onclick=()=>{
-    chosenDelivery = btn.dataset.type;
-    document.querySelectorAll(".deliveryBtn").forEach(b=>b.classList.remove("selected"));
-    btn.classList.add("selected");
-  };
-});
-
 sendOrder.onclick = () => {
   const favs = readFavs();
   if (!favs.length) return alert("Добавьте товар");
@@ -3085,8 +3169,15 @@ function renderOrderDetails(order) {
       <div style="flex-grow:1;">
         <div style="font-weight:600; font-size:15px; color:var(--dark);">${item.name}</div>
         <div style="font-size:13px;color:#666">
-          ${item.ml} — ${item.price} ₽
-        </div>
+  ${item.ml} — 
+  ${item.originalPrice 
+    ? `<s style="color:#999; margin-right:6px;">${item.originalPrice} ₽</s>` 
+    : ''} 
+  <b style="color:var(--accent)">${item.price} ₽</b>
+  ${item.discountLabel 
+    ? `<span style="color:#e74c3c; font-size:12px; font-weight:600; margin-left:8px;">${item.discountLabel}</span>` 
+    : ''}
+</div>
       </div>
       <button class="add-to-fav" data-i="${i}" style="padding:6px 12px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;">Добавить</button>
     `;
