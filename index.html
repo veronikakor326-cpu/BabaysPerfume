@@ -3262,7 +3262,12 @@ function renderOrderDetails(order) {
   ${item.originalPrice 
     ? `<s style="color:#999; margin-right:6px;">${item.originalPrice} ₽</s>` 
     : ''} 
-  <b style="color:var(--accent)">${item.price} ₽</b>
+  <b style="color:var(--accent)">${item.originalPrice 
+  ? `<span style="text-decoration:line-through;color:#999;font-size:13px">
+       ${item.originalPrice} ₽
+     </span> ${item.price} ₽`
+  : `${item.price} ₽`
+}</b>
   ${item.discountLabel 
     ? `<span style="color:#e74c3c; font-size:12px; font-weight:600; margin-left:8px;">${item.discountLabel}</span>` 
     : ''}
@@ -3286,8 +3291,7 @@ document.getElementById("addAllToFav").onclick = () => {
   : count < 5
     ? `✅ Добавлено ${count} товара из заказа №${order.orderId}`
     : `✅ Добавлено ${count} товаров из заказа №${order.orderId}`;
-alert(text);
-  alert(text);
+
   } else {
     alert('В этом заказе нет товаров для добавления');
   }
