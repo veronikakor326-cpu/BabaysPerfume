@@ -2971,7 +2971,39 @@ addFavBtn.onclick = () => {
   modalBack.style.display = "none";
 };
 
-openBooking.onclick=()=>{if(!readFavs().length) return alert("Добавьте товар"); favBack.style.display="none"; bookBack.style.display="flex"; renderFavs(); calculateTotal();}
+// ==================== ОФОРМЛЕНИЕ ЗАКАЗА ====================
+openBooking.onclick = () => {
+    if (!readFavs().length) return alert("Добавьте товар");
+
+    favBack.style.display = "none";
+    bookBack.style.display = "flex";
+
+    renderFavs();
+    calculateTotal();
+
+    // ←←← ИСПРАВЛЕНИЕ: инициализация кнопок доставки
+    initDeliveryButtons();
+};
+
+// === ФУНКЦИЯ ДЛЯ РАБОТЫ КНОПОК ДОСТАВКИ ===
+function initDeliveryButtons() {
+    const deliveryBtns = document.querySelectorAll('.deliveryBtn');
+    
+    deliveryBtns.forEach(btn => {
+        btn.onclick = () => {
+            // Снимаем выделение со всех кнопок
+            deliveryBtns.forEach(b => b.classList.remove('selected'));
+            
+            // Выделяем нажатую
+            btn.classList.add('selected');
+            
+            // Сохраняем выбранный способ
+            chosenDelivery = btn.dataset.type;
+            
+            console.log('✅ Выбрана доставка:', chosenDelivery);
+        };
+    });
+}
 
 function makeModalClosable(back,btn){
   btn.onclick=()=>back.style.display="none";
@@ -3136,26 +3168,83 @@ function writeOrders(orders) {
 
 function addToFavFromHistory(item) {
   const favs = readFavs();
-  
-  // Берём фиксированный объём или дефолт 7 мл
-  let ml = item.mlFixed || item.ml || '7 мл';
-  let price = item.prices?.fixed || item.prices?.[7] || item.price || 0;
+
+  const currentItem = catalog.find(c => c.name === item.name);
+
+  let actualPrice = item.price || 0;
+  let originalPrice = null;
+  let discountLabel = null;
+
+  if (currentItem) {
+    const mlNum = parseInt(item.mlFixed || item.ml || "7") || 7;
+    let basePrice = currentItem.prices?.[mlNum] || currentItem.priceCategory || item.price || 550;
+
+    if (typeof basePrice === "number") {
+      if (currentItem.weekDiscount && currentItem.weekDiscount > 0) {
+        actualPrice = Math.round(basePrice * (1 - currentItem.weekDiscount / 100));
+        originalPrice = basePrice;
+        discountLabel = currentItem.discountLabel || `−${currentItem.weekDiscount}%`;
+      } else {
+        actualPrice = basePrice;
+      }
+    }
+  }
+
+  const ml = item.mlFixed || item.ml || "7 мл";
 
   const newItem = {
-    id: item.id,
     name: item.name,
     img: item.img,
     ml: ml,
-    price: price,
+    price: actualPrice,
+    originalPrice: originalPrice,
+    discountLabel: discountLabel,
     aromas: item.aromas || null
   };
+
   favs.push(newItem);
   writeFavs(favs);
 
-  // Новое сообщение после добавления
-   // alert('Товар добавлен в набор!');
+  showAddedNotification(item.name);
 }
+// Уведомление при добавлении товара(ов) в корзину
+function showAddedNotification(name = null) {
+  const notif = document.createElement('div');
+  notif.style.cssText = `
+    position: fixed; 
+    top: 90px; 
+    left: 50%; 
+    transform: translateX(-50%);
+    background: #b3873a; 
+    color: white; 
+    padding: 16px 24px; 
+    border-radius: 14px;
+    font-size: 16px; 
+    font-weight: 600; 
+    box-shadow: 0 8px 25px rgba(179,135,58,0.4);
+    z-index: 10000; 
+    text-align: center; 
+    min-width: 260px;
+    opacity: 0;
+    transition: all 0.4s ease;
+  `;
 
+  notif.textContent = name 
+    ? `${name} добавлен в набор ✓` 
+    : `Товары добавлены в набор ✓`;
+
+  document.body.appendChild(notif);
+
+  // Появление
+  setTimeout(() => notif.style.opacity = '1', 10);
+
+  // Исчезновение
+  setTimeout(() => {
+    notif.style.opacity = '0';
+    notif.style.transform = 'translateX(-50%) translateY(-15px)';
+    setTimeout(() => notif.remove(), 500);
+  }, 2200);
+}
 function renderOrderDetails(order) {
   document.getElementById("orderDetailsId").textContent = order.orderId;
   const content = document.getElementById("orderDetailsContent");
@@ -3568,6 +3657,5 @@ window.addEventListener('load', () => {
 
 </body>
 </html>
-
 
 
