@@ -192,7 +192,15 @@ header.appbar {
   border-radius: 10px !important; font-weight: 600;
 }
 
-.fav-item { display: flex; gap: 12px; align-items: center; padding: 10px; border-radius: 10px; background: var(--bg); margin-bottom: 8px; }
+.fav-item { 
+  display: flex; 
+  gap: 12px; 
+  align-items: center; 
+  padding: 12px; 
+  border-radius: 12px; 
+  background: var(--bg); 
+  margin-bottom: 10px; 
+}
 .fav-item img { width: 64px; height: 64px; border-radius: 8px; object-fit: cover; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
 
 #catalogPage { overflow-y: auto; padding-bottom: 80px; }
@@ -447,12 +455,12 @@ header.appbar {
   </div>
 </div>
 
-<!-- Модальное окно "Корзина" (корзина) -->
+<!-- Модальное окно "Корзина" -->
 <div class="modal-back" id="favBack">
   <div class="modal" id="favModal" style="max-width:500px;padding-bottom:10px">
     <div style="padding:14px 16px;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center">
       <div style="font-weight:700;font-size:18px;font-family:'Playfair Display'"> Корзина </div>
-      <button id="closeFav" style="background:var(--bg);border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700;color:var(--dark)">✕</button>
+      <button id="closeFav" style="background:var(--bg);border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700;color:var(--dark);font-size:22px;">✕</button>
     </div>
 
     <div id="giftBlock" style="display:none;padding:12px;border-bottom:1px solid #f3f3f3;background:#e9fce9;">
@@ -471,7 +479,10 @@ header.appbar {
     </div>
 
     <div style="padding:16px">
-      <button id="openBooking" style="width:100%;padding:14px;border:0;cursor:pointer">Перейти к оформлению</button>
+      <button id="openBooking" style="width:100%;padding:14px;border:0;cursor:pointer;margin-bottom:12px;">Перейти к оформлению</button>
+      <button id="clearCartBtn" style="width:100%;padding:12px;background:#fee;border:1px solid #f66;border-radius:10px;color:#c44;font-weight:600;cursor:pointer;">
+        🗑 Очистить корзину
+      </button>
     </div>
   </div>
 </div>
@@ -547,12 +558,12 @@ header.appbar {
       </div>
       <div class="format-card" data-format="mix">
         <div class="name">Микс</div>
-        <div>Для знакомства с премиум · 2 стандарт + 1 ниша</div>
+        <div>Для знакомства с премиум · 2 стандарт + 1 premium </div>
         <div style="font-weight:600">1790 ₽</div>
       </div>
       <div class="format-card" data-format="hit">
         <div class="name">Хит продаж</div>
-        <div>Самый популярный выбор · 1 стандарт + 2 нишевых</div>
+        <div>Самый популярный выбор · 1 стандарт + 2 premium </div>
         <div style="font-weight:600">1990 ₽</div>
       </div>
       <div class="format-card" data-format="premium">
@@ -606,18 +617,19 @@ header.appbar {
 </div>
 
 <!-- Детали заказа -->
+<!-- Детали заказа -->
+<!-- Детали заказа -->
 <div class="modal-back" id="orderDetailsBack">
   <div class="modal" id="orderDetailsModal">
-    <div style="padding:14px 16px;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center">
-      <div style="font-weight:700;font-size:18px;font-family:'Playfair Display'">Детали заказа №<span id="orderDetailsId"></span></div>
-      <button id="closeOrderDetails" style="background:var(--bg);border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700;color:var(--dark)">✕</button>
+    <div style="padding:16px 20px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center;">
+      <div style="font-weight:700; font-size:19px; font-family:'Playfair Display';">Детали заказа №<span id="orderDetailsId"></span></div>
+      <button id="closeOrderDetails" style="background:transparent; border:none; font-size:28px; color:#666; cursor:pointer; padding:4px 12px;">✕</button>
     </div>
-    <div id="orderDetailsContent" style="padding:12px;max-height:50vh;overflow-y:auto;"></div>
-    <div style="padding:16px">
-      <button id="addAllToFav" style="width:100%;padding:14px;background:var(--accent);color:#fff;border:none;border-radius:10px;cursor:pointer">Добавить все в корзину</button>
-    </div>
+    <div id="orderDetailsContent" style="padding:16px; max-height:60vh; overflow-y:auto;"></div>
   </div>
 </div>
+
+    
 
 <div class="bottom-nav">
   <div class="nav-item active" data-page="home">
@@ -2309,27 +2321,53 @@ function createProductCard(item) {
       <div class="img" style="background-image:url('${item.img}')"></div>
       ${badges}
       <div class="info">
-        <div class="name">${item.name}</div>
-        <div class="meta">${metaContent}</div>
-      </div>
+  <div class="name">${item.name}</div>
+  <div class="meta">${metaContent}</div>
+  ${getCardPriceHTML(item)}
+</div>
     `;
     div.onclick = () => openModal(item);
   }
 
   return div;
 }
+function getCardPriceHTML(item) {
+  if (item.nabory && item.prices && item.prices.fixed) {
+    return `<div style="font-size:13px;color:var(--accent);font-weight:700;margin-top:6px;">${item.prices.fixed} ₽</div>`;
+  }
+  if (!item.priceCategory) return '';
+
+  if (item.weekDiscount && item.weekDiscount > 0) {
+    const discounted = Math.round(item.priceCategory * (1 - item.weekDiscount / 100));
+    return `
+      <div style="font-size:13px;margin-top:6px;display:flex;gap:6px;align-items:center;">
+        <span style="text-decoration:line-through;color:#999;font-size:12px;">${item.priceCategory} ₽</span>
+        <span style="color:var(--accent);font-weight:700;">${discounted} ₽</span>
+        <span style="font-size:11px;color:#e74c3c;">${item.discountLabel || ''}</span>
+      </div>`;
+  } else {
+    return `<div style="font-size:13px;color:var(--accent);font-weight:600;margin-top:6px;">от ${item.priceCategory} ₽</div>`;
+  }
+}
 function renderHomeSections() {
   // Хиты
   hitProducts.innerHTML = "";
   catalog.filter(i => i.hit).forEach(i => hitProducts.appendChild(createProductCard(i)));
 
-  // Новинки (с реверсом)
-  newProducts.innerHTML = "";
-  catalog
-    .filter(i => i.new)
-    .reverse()
-    .forEach(i => newProducts.appendChild(createProductCard(i)));
-
+ // Новинки (с реверсом)
+newProducts.innerHTML = "";
+catalog
+  .filter(i => i.new)
+  .reverse()
+  .forEach(i => {
+    // Важно: принудительно ставим priceCategory, если его нет
+    if (!i.priceCategory && i.prices) {
+      i.priceCategory = typeof i.prices["7"] === "number" 
+        ? i.prices["7"] 
+        : (Array.isArray(i.prices["7"]) ? i.prices["7"][0] : 550);
+    }
+    newProducts.appendChild(createProductCard(i));
+  });
   // Наборы
   naboryProducts.innerHTML = "";
   const constructor = catalog.find(i => i.isConstructor);
@@ -2468,40 +2506,62 @@ if (item.notes) {
 
     mlOptions.querySelectorAll(".ml").forEach(btn => {
       btn.classList.remove("selected");
+btn.onclick = () => {
+  selectedML = btn.textContent;
+  mlOptions.querySelectorAll(".ml").forEach(b => b.classList.remove("selected"));
+  btn.classList.add("selected");
 
-      btn.onclick = () => {
-        selectedML = btn.textContent;
-        mlOptions.querySelectorAll(".ml").forEach(b => b.classList.remove("selected"));
-        btn.classList.add("selected");
+  qualityOptions.innerHTML = "";
+  qualityBlock.style.display = "none";
+  selectedQualityIndex = null;
 
-        qualityOptions.innerHTML = "";
-        qualityBlock.style.display = "none";
-        selectedQualityIndex = null;
+  const prices = item.prices[selectedML];
 
-        const prices = item.prices[selectedML];
+  if (Array.isArray(prices)) {
+    qualityBlock.style.display = "block";
+    priceBlock.textContent = "Выберите качество";
 
-        if (Array.isArray(prices)) {
-          qualityBlock.style.display = "block";
-          priceBlock.textContent = "Выберите качество";
+    prices.forEach((price, index) => {
+      const qBtn = document.createElement("button");
+      qBtn.className = "ml";
+      qBtn.textContent = `${qualityNames[index]} — ${price} ₽`;
 
-          prices.forEach((price, index) => {
-            const qBtn = document.createElement("button");
-            qBtn.className = "ml";
-            qBtn.textContent = `${qualityNames[index]} — ${price} ₽`;
+      qBtn.onclick = () => {
+        selectedQualityIndex = index;
+        qualityOptions.querySelectorAll(".ml").forEach(b => b.classList.remove("selected"));
+        qBtn.classList.add("selected");
 
-            qBtn.onclick = () => {
-              selectedQualityIndex = index;
-              qualityOptions.querySelectorAll(".ml").forEach(b => b.classList.remove("selected"));
-              qBtn.classList.add("selected");
-              priceBlock.textContent = `Цена: ${price} ₽`;
-            };
-
-            qualityOptions.appendChild(qBtn);
-          });
+        let finalPrice = price;
+        if (item.weekDiscount && item.weekDiscount > 0) {
+          finalPrice = Math.round(price * (1 - item.weekDiscount / 100));
+          priceBlock.innerHTML = `
+            Цена за ${selectedML} мл: 
+            <span style="text-decoration:line-through;color:#999;">${price} ₽</span> 
+            <span style="color:var(--accent);font-weight:700;">${finalPrice} ₽</span>
+            <span style="font-size:13px;color:#e74c3c;margin-left:8px;">${item.discountLabel || ''}</span>
+          `;
         } else {
-          priceBlock.textContent = `Цена за ${selectedML} мл: ${prices} ₽`;
+          priceBlock.textContent = `Цена за ${selectedML} мл: ${price} ₽`;
         }
       };
+
+      qualityOptions.appendChild(qBtn);
+    });
+  } else {
+    let finalPrice = prices;
+    if (item.weekDiscount && item.weekDiscount > 0) {
+      finalPrice = Math.round(prices * (1 - item.weekDiscount / 100));
+      priceBlock.innerHTML = `
+        Цена за ${selectedML} мл: 
+        <span style="text-decoration:line-through;color:#999;">${prices} ₽</span> 
+        <span style="color:var(--accent);font-weight:700;">${finalPrice} ₽</span>
+        <span style="font-size:13px;color:#e74c3c;margin-left:8px;">${item.discountLabel || ''}</span>
+      `;
+    } else {
+      priceBlock.textContent = `Цена за ${selectedML} мл: ${prices} ₽`;
+    }
+  }
+};
     });
   }
 
@@ -2560,18 +2620,58 @@ function addToFav(item) {
   modalBack.style.display = "none";
 }
 
-function renderFavs(){
-  const favs = readFavs();
+function renderFavs() {
+  let favs = readFavs();
+  const updatedFavs = [];
+
+  favs.forEach(cartItem => {
+    const catalogItem = catalog.find(c => c.name === cartItem.name);
+    
+    let finalPrice = cartItem.price;
+    let originalPrice = null;
+    let discountLabel = null;
+
+    if (catalogItem) {
+      const mlNum = parseInt(cartItem.ml || "7") || 7;
+      
+      let basePrice = catalogItem.prices?.[mlNum] 
+        ? (Array.isArray(catalogItem.prices[mlNum]) ? catalogItem.prices[mlNum][0] : catalogItem.prices[mlNum])
+        : catalogItem.priceCategory || 550;
+
+      if (typeof basePrice === "number") {
+        if (catalogItem.weekDiscount && catalogItem.weekDiscount > 0) {
+          finalPrice = Math.round(basePrice * (1 - catalogItem.weekDiscount / 100));
+          originalPrice = basePrice;
+          discountLabel = catalogItem.discountLabel || `−${catalogItem.weekDiscount}%`;
+        } else {
+          finalPrice = basePrice;
+        }
+      }
+    }
+
+    updatedFavs.push({
+      ...cartItem,
+      price: finalPrice,
+      originalPrice: originalPrice,
+      discountLabel: discountLabel
+    });
+  });
+
+  // Сохраняем обновлённые цены
+  writeFavs(updatedFavs);
+
+  // Теперь рендерим
+  const currentFavs = readFavs();
   favList.innerHTML = "";
 
-  giftBlock.style.display = favs.length > 0 ? "block" : "none";
+  giftBlock.style.display = currentFavs.length > 0 ? "block" : "none";
 
-  if (!favs.length) {
+  if (!currentFavs.length) {
     favList.innerHTML = `<div style="text-align:center; color:#888; padding:20px 0;">Ваша подборка пустая.</div>`;
     document.getElementById('suggestAromaBox').style.display = "none";
     document.getElementById('suggestButtons').style.display = "none";
   } else {
-    favs.forEach((item, i) => {
+    currentFavs.forEach((item, i) => {
       const div = document.createElement("div");
       div.className = "fav-item";
       
@@ -2580,46 +2680,51 @@ function renderFavs(){
         <div style="flex-grow:1;">
           <div style="font-weight:600; font-size:15px; color:var(--dark);">${item.name}</div>
           <div style="font-size:13px;color:#666">
-            ${item.ml} — ${item.price} ₽
+            ${item.ml || '7 мл'} — 
+            ${item.originalPrice 
+              ? `<s style="color:#999;margin-right:6px;">${item.originalPrice} ₽</s>` 
+              : ''} 
+            <b style="color:var(--accent)">${item.price} ₽</b>
+            ${item.discountLabel 
+              ? `<span style="color:#e74c3c;font-size:12px;font-weight:600;margin-left:8px;">${item.discountLabel}</span>` 
+              : ''}
           </div>
         </div>
-        <button class="fav-remove" data-i="${i}" style="font-size:20px;background:transparent;border:0;color:#c44;font-weight:700;cursor:pointer">✕</button>
+        <button class="fav-remove" data-i="${i}" 
+          style="font-size:24px;background:transparent;border:0;color:#c44;font-weight:700;cursor:pointer;align-self:center;">✕</button>
       `;
 
       favList.appendChild(div);
     });
 
-    // Блок с предложением создать AromaBox
-    const aromas = favs.filter(f => 
+    // ... (остальной код с suggestAromaBox остаётся без изменений)
+        // === БЛОК ПРЕДЛОЖЕНИЯ AROMABOX (только 2 аромата без скидки) ===
+    const aromas = currentFavs.filter(f => 
       !f.name.startsWith('AromaBox') && 
       !f.name.startsWith('Набор') && 
       !f.name.startsWith('Discovery') && 
-      f.ml === '7'
+      (f.ml === '7' || f.ml === '7 мл')
     );
 
+    let showSuggest = false;
+
     if (aromas.length === 2) {
-      // Показываем ТОЛЬКО если НЕТ ни одного предзаказа
-      const hasPreorder = aromas.some(a => a.preorder === true);
-      
-      if (!hasPreorder) {
-        document.getElementById('suggestAromaBox').style.display = "block";
-        document.getElementById('suggestButtons').style.display = "flex";
-      } else {
-        // Есть хотя бы один предзаказ → скрываем
-        document.getElementById('suggestAromaBox').style.display = "none";
-        document.getElementById('suggestButtons').style.display = "none";
-      }
-    } else {
-      document.getElementById('suggestAromaBox').style.display = "none";
-      document.getElementById('suggestButtons').style.display = "none";
+      // Проверяем, есть ли среди них аромат со скидкой
+      const hasDiscounted = aromas.some(cartItem => {
+        const catalogItem = catalog.find(c => c.name === cartItem.name);
+        return catalogItem && catalogItem.weekDiscount && catalogItem.weekDiscount > 0;
+      });
+
+      showSuggest = !hasDiscounted;   // показываем только если нет скидочных ароматов
     }
 
-    // Обработчик удаления товаров (оставляем как было)
+    document.getElementById('suggestAromaBox').style.display = showSuggest ? "block" : "none";
+    document.getElementById('suggestButtons').style.display = showSuggest ? "flex" : "none";
     document.querySelectorAll(".fav-remove").forEach(btn => {
       btn.onclick = () => {
-        const favs = readFavs();
-        favs.splice(btn.dataset.i, 1);
-        writeFavs(favs);
+        let favsNew = readFavs();
+        favsNew.splice(btn.dataset.i, 1);
+        writeFavs(favsNew);
         renderFavs();
         if (bookBack.style.display === "flex") calculateTotal();
       };
@@ -2628,7 +2733,6 @@ function renderFavs(){
 
   calculateTotal();
 }
-
 document.getElementById('suggestAromaBox').onclick = () => {
   document.getElementById('suggestAromaBox').style.display = "none";
   document.getElementById('suggestButtons').style.display = "flex";
@@ -2641,58 +2745,59 @@ document.getElementById('agreeSuggest').onclick = () => {
     !f.name.startsWith('AromaBox') &&
     !f.name.startsWith('Набор') &&
     !f.name.startsWith('Discovery') &&
-    f.ml === '7'
+    (f.ml === '7' || f.ml === '7 мл')
   );
 
-  // Если не ровно 2 — выходим (защита)
-  if (aromasInCart.length !== 2) return;
+  if (aromasInCart.length !== 2) {
+    alert('Должно быть ровно 2 аромата по 7 мл');
+    return;
+  }
 
-  // Запрет, если хотя бы один в предзаказе
-  if (aromasInCart.some(a => a.preorder === true)) {
-    alert('Нельзя создать AromaBox, если хотя бы один аромат в предзаказе');
+  // Проверка на наличие аромата со скидкой
+  const hasDiscounted = aromasInCart.some(cartItem => {
+    const catalogItem = catalog.find(c => c.name === cartItem.name);
+    return catalogItem && catalogItem.weekDiscount && catalogItem.weekDiscount > 0;
+  });
+
+  if (hasDiscounted) {
+    alert('Ароматы со скидкой нельзя использовать для создания AromaBox');
     return;
   }
 
   // Находим полные объекты из каталога
   selectedAromas = aromasInCart.map(cartItem =>
     catalog.find(c => c.name === cartItem.name)
-  ).filter(Boolean); // убираем undefined, если вдруг не нашли
+  ).filter(Boolean);
 
   if (selectedAromas.length !== 2) {
-    alert('Не удалось найти оба аромата в каталоге');
+    alert('Не удалось найти ароматы в каталоге');
     return;
   }
 
-  // Считаем количество классики и премиума
+  // Определяем формат бокса
   const lowCount = selectedAromas.filter(a => a.priceCategory === 550).length;
   const highCount = selectedAromas.filter(a => a.priceCategory === 800).length;
 
-  // Определяем формат бокса
-  if (lowCount === 2 && highCount === 0) {
-    selectedFormat = 'standard';
-  } else if (lowCount === 1 && highCount === 1) {
-    selectedFormat = 'mix';
-  } else if (lowCount === 0 && highCount === 2) {
-    selectedFormat = 'premium'; // или 'hit' — под твою логику
-  } else {
-    selectedFormat = 'mix'; // fallback
-  }
+  if (lowCount === 2) selectedFormat = 'standard';
+  else if (lowCount === 1 && highCount === 1) selectedFormat = 'mix';
+  else if (highCount === 2) selectedFormat = 'premium';
+  else selectedFormat = 'mix';
 
   // Удаляем эти два аромата из корзины
   const newFavs = favs.filter(f => 
-    !aromasInCart.some(a => a.name === f.name && a.ml === '7')
+    !aromasInCart.some(a => a.name === f.name && (a.ml === '7' || a.ml === '7 мл'))
   );
   writeFavs(newFavs);
 
-  // Открываем конструктор бокса
+  // Открываем конструктор
   document.getElementById("aromaBoxBack").style.display = "flex";
-  showStep(1); // или 0 — смотря с какого шага хочешь начинать
+  showStep(1);
 
   renderSelectedSlots();
   renderAromaGrid();
   updateHints();
 
-  // Скрываем предложение и модалку корзины
+  // Скрываем предложение
   document.getElementById('suggestAromaBox').style.display = "none";
   document.getElementById('suggestButtons').style.display = "none";
   favBack.style.display = "none";
@@ -2934,13 +3039,12 @@ navItems.forEach(item => {
       favBack.style.display="flex";
     } else if (pageId === "support") {
       supportBack.style.display="flex";
-    } else if (pageId === "orders") {
-      // Вот это и было нужно — теперь точно работает
-      renderOrders();
-      document.getElementById("ordersBack").style.display = "flex";
-    } else {
-      goToPage(pageId);
-    }
+  } else if (pageId === "orders") {
+  renderOrders();
+  document.getElementById("ordersBack").style.display = "flex";
+} else {
+  goToPage(pageId);
+}
   };
 });
 
@@ -3166,26 +3270,30 @@ function writeOrders(orders) {
   localStorage.setItem(ORDERS_KEY, JSON.stringify(orders));
 }
 
-function addToFavFromHistory(item) {
+function addToFavFromHistory(item, skipNotification = false) {
   const favs = readFavs();
 
   const currentItem = catalog.find(c => c.name === item.name);
-
-  let actualPrice = item.price || 0;
+  
+  let finalPrice = item.price || 550;
   let originalPrice = null;
   let discountLabel = null;
 
   if (currentItem) {
     const mlNum = parseInt(item.mlFixed || item.ml || "7") || 7;
-    let basePrice = currentItem.prices?.[mlNum] || currentItem.priceCategory || item.price || 550;
+    
+    // Берём базовую цену из каталога
+    let basePrice = currentItem.prices?.[mlNum] 
+      ? (Array.isArray(currentItem.prices[mlNum]) ? currentItem.prices[mlNum][0] : currentItem.prices[mlNum])
+      : currentItem.priceCategory || 550;
 
     if (typeof basePrice === "number") {
       if (currentItem.weekDiscount && currentItem.weekDiscount > 0) {
-        actualPrice = Math.round(basePrice * (1 - currentItem.weekDiscount / 100));
+        finalPrice = Math.round(basePrice * (1 - currentItem.weekDiscount / 100));
         originalPrice = basePrice;
         discountLabel = currentItem.discountLabel || `−${currentItem.weekDiscount}%`;
       } else {
-        actualPrice = basePrice;
+        finalPrice = basePrice;
       }
     }
   }
@@ -3196,7 +3304,7 @@ function addToFavFromHistory(item) {
     name: item.name,
     img: item.img,
     ml: ml,
-    price: actualPrice,
+    price: finalPrice,
     originalPrice: originalPrice,
     discountLabel: discountLabel,
     aromas: item.aromas || null
@@ -3205,7 +3313,9 @@ function addToFavFromHistory(item) {
   favs.push(newItem);
   writeFavs(favs);
 
-  showAddedNotification(item.name);
+  if (!skipNotification) {
+    showAddedNotification(item.name);
+  }
 }
 // Уведомление при добавлении товара(ов) в корзину
 function showAddedNotification(name = null) {
@@ -3230,8 +3340,8 @@ function showAddedNotification(name = null) {
   `;
 
   notif.textContent = name 
-    ? `${name} добавлен в набор ✓` 
-    : `Товары добавлены в набор ✓`;
+    ? `${name} добавлен в корзину ✓` 
+    : `Товары добавлены в корзину ✓`;
 
   document.body.appendChild(notif);
 
@@ -3247,80 +3357,78 @@ function showAddedNotification(name = null) {
 }
 function renderOrderDetails(order) {
   document.getElementById("orderDetailsId").textContent = order.orderId;
+  
   const content = document.getElementById("orderDetailsContent");
   content.innerHTML = '';
 
   order.items.forEach((item, i) => {
     const div = document.createElement("div");
     div.className = "fav-item";
+    
     div.innerHTML = `
-      <img src="${item.img}">
+      <img src="${item.img}" style="width:64px;height:64px;object-fit:cover;border-radius:8px;">
       <div style="flex-grow:1;">
         <div style="font-weight:600; font-size:15px; color:var(--dark);">${item.name}</div>
         <div style="font-size:13px;color:#666">
-  ${item.ml} — 
-  ${item.originalPrice 
-    ? `<s style="color:#999; margin-right:6px;">${item.originalPrice} ₽</s>` 
-    : ''} 
-  <b style="color:var(--accent)">${item.originalPrice 
-  ? `<span style="text-decoration:line-through;color:#999;font-size:13px">
-       ${item.originalPrice} ₽
-     </span> ${item.price} ₽`
-  : `${item.price} ₽`
-}</b>
-  ${item.discountLabel 
-    ? `<span style="color:#e74c3c; font-size:12px; font-weight:600; margin-left:8px;">${item.discountLabel}</span>` 
-    : ''}
-</div>
+          ${item.ml || '7 мл'} — 
+          ${item.originalPrice ? `<s style="color:#999;margin-right:6px;">${item.originalPrice} ₽</s>` : ''} 
+          <b style="color:var(--accent)">${item.price} ₽</b>
+          ${item.discountLabel ? `<span style="color:#e74c3c;font-size:12px;font-weight:600;margin-left:8px;">${item.discountLabel}</span>` : ''}
+        </div>
       </div>
-      <button class="add-to-fav" data-i="${i}" style="padding:6px 12px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;">Добавить</button>
+      <button class="add-single-item" data-index="${i}" 
+        style="padding:8px 16px; background:var(--accent); color:#fff; border:none; border-radius:8px; cursor:pointer; font-size:13px; white-space:nowrap;">
+        Добавить
+      </button>
     `;
     content.appendChild(div);
   });
 
-document.getElementById("addAllToFav").onclick = () => {
-  const count = order.items.length;
+  // === Кнопка "Добавить весь заказ" ===
+  const addAllBtn = document.createElement("button");
+  addAllBtn.style = "width:100%; margin:20px 0 12px 0; padding:14px; background:var(--accent); color:#fff; border:none; border-radius:10px; font-weight:600; cursor:pointer;";
+  addAllBtn.textContent = "Добавить весь заказ в корзину";
+  content.appendChild(addAllBtn);
 
-  // Добавляем все товары
-  order.items.forEach(item => addToFavFromHistory(item));
+  addAllBtn.onclick = () => {
+    const count = order.items.length;
+    if (count === 0) return alert('Нет товаров для добавления');
 
-  // Одно красивое сообщение с правильным склонением
-  if (count > 0) {
-    const text = count === 1
-  ? `✅ Добавлен 1 товар из заказа №${order.orderId}`
-  : count < 5
-    ? `✅ Добавлено ${count} товара из заказа №${order.orderId}`
-    : `✅ Добавлено ${count} товаров из заказа №${order.orderId}`;
+    order.items.forEach(item => addToFavFromHistory(item));
 
-  } else {
-    alert('В этом заказе нет товаров для добавления');
-  }
+    const message = count === 1 
+      ? `${order.items[0].name} добавлен в корзину ✓` 
+      : `Заказ №${order.orderId} добавлен (${count} товаров) ✓`;
 
-  // Закрываем модалку с деталями заказа
-  document.getElementById("orderDetailsBack").style.display = "none";
+    showAddedNotification(message);
+    document.getElementById("orderDetailsBack").style.display = "none";
+    renderFavs();
+  };
 
-  // Обновляем отображение корзины (если она открыта)
-  renderFavs();
-};
-
-  document.querySelectorAll(".add-to-fav").forEach(btn => {
+  // === Добавление отдельного товара ===
+  document.querySelectorAll('.add-single-item').forEach(btn => {
     btn.onclick = () => {
-      const item = order.items[btn.dataset.i];
-      addToFavFromHistory(item);
+      const index = parseInt(btn.dataset.index);
+      const item = order.items[index];
+      
+      if (item) {
+        addToFavFromHistory(item);
+        showAddedNotification(`${item.name} добавлен в корзину ✓`);
+      }
     };
   });
 
-  // Новая кнопка удаления отдельного заказа
+  // Кнопка удаления заказа
   const deleteBtn = document.createElement('button');
   deleteBtn.textContent = 'Удалить этот заказ';
-  deleteBtn.style = "width:100%;margin-top:20px;padding:12px;background:#ff4d4d;color:#fff;border:none;border-radius:10px;cursor:pointer;";
+  deleteBtn.style = "width:100%;padding:12px;background:#ff4d4d;color:#fff;border:none;border-radius:10px;cursor:pointer;margin-top:10px;";
   deleteBtn.onclick = () => {
     if (confirm(`Удалить заказ №${order.orderId}?`)) {
       let orders = readOrders();
       orders = orders.filter(o => o.orderId !== order.orderId);
       writeOrders(orders);
       document.getElementById("orderDetailsBack").style.display = "none";
-      renderOrders(); // Обновляем список
+      renderOrders();
     }
   };
   content.appendChild(deleteBtn);
@@ -3436,23 +3544,25 @@ function renderAromaGrid() {
   const show550 = lowCount < comp[550];
   const show800 = highCount < comp[800];
 
-  catalog.filter(item => !item.nabory && !item.isConstructor && item.prices && item.prices[7] &&
+  // Фильтруем ароматы: исключаем те, у которых есть weekDiscount
+  catalog.filter(item => 
+    !item.nabory && 
+    !item.isConstructor && 
+    item.prices && 
+    item.prices[7] &&
+    !item.weekDiscount &&                    // ←←← главное изменение
     ((item.priceCategory === 550 && show550) || (item.priceCategory === 800 && show800))
   ).forEach(item => {
     const card = document.createElement('div');
     card.className = 'aroma-card';
 
-    // Определяем тип бейджа
     const isPremium = item.priceCategory === 800;
     const badgeText = isPremium ? 'PREMIUM' : 'CLASSIC';
-    const badgeBg = isPremium ? '#1a1a1a' : 'var(--accent)'; // тёмный для премиум, золотой для классик
-    const badgeColor = isPremium ? '#ffffff' : '#ffffff'; // белый текст в обоих случаях
+    const badgeBg = isPremium ? '#1a1a1a' : 'var(--accent)';
 
     card.innerHTML = `
       <div style="position: relative;">
         <img src="${item.img}" alt="${item.name}" style="width:100%; height:140px; object-fit:cover; border-radius:12px 12px 0 0;">
-        
-        <!-- Бейдж -->
         <div style="
           position: absolute;
           top: 8px;
@@ -3461,7 +3571,7 @@ function renderAromaGrid() {
           border-radius: 6px;
           font-size: 10px;
           font-weight: 800;
-          color: ${badgeColor};
+          color: #ffffff;
           text-transform: uppercase;
           letter-spacing: 0.6px;
           background: ${badgeBg};
@@ -3473,9 +3583,6 @@ function renderAromaGrid() {
       </div>
       <div style="padding: 12px;">
         <div class="name" style="font-size:14px; font-weight:600; margin-bottom:4px;">${item.name}</div>
-        <div style="font-size:12px; color:var(--muted);">
-         
-        </div>
       </div>
     `;
 
@@ -3484,7 +3591,7 @@ function renderAromaGrid() {
     aromaGrid.appendChild(card);
   });
 
-  // Сброс поиска после перерисовки (правильное место)
+  // Сброс поиска
   if (aromaSearch) {
     aromaSearch.value = '';
     const cards = document.querySelectorAll('#aromaGrid .aroma-card');
@@ -3657,6 +3764,13 @@ window.addEventListener('load', () => {
     }
   }
 });
+// Кнопка очистки корзины
+document.getElementById('clearCartBtn').onclick = () => {
+  if (confirm('Очистить всю корзину?')) {
+    writeFavs([]);
+    renderFavs();
+  }
+};
 </script>
 
 </body>
