@@ -1973,7 +1973,7 @@ discountLabel: "Скидка −3%"
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 },
 priceCategory: 800,
   },
-  {
+ {
     "name": "Les Liquides Imaginaires - Blanche Bête",
     "gender": "Унисекс",
     "img": "https://raw.githubusercontent.com/veronikakor326-cpu/BabaysPerfume/e75915e320b5d80b0b344e4bff128ff933e914e9/images/catalog/photo_3_2026-01-26_12-15-01.jpg",
@@ -1986,6 +1986,9 @@ priceCategory: 800,
 "hit": true,
     "prices": { "7": 800, "15": 1500, "30": 2700, "50": 4500, "100": 8000 },
 priceCategory: 800,
+"outOfStock": true,        // ← вот это главное
+  // можно добавить сообщение
+  "outOfStockText": "Нет в наличии" 
   },
   {
     "name": "Kilian - Straight to Heaven White Cristal",
@@ -2255,12 +2258,19 @@ function createProductCard(item) {
 
   let badges = "";
 
-  // Существующие бейджи (ХИТ, NEW, ПРЕДЗАКАЗ)
-  if (item.hit) {
-    badges += `<div style="position:absolute;top:8px;left:8px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;">ХИТ</div>`;
+  if (item.outOfStock) {
+    badges += `
+      <div style="position:absolute;top:8px;left:8px;background:#c44;color:#fff;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;z-index:15;">
+        ❌ НЕ В НАЛИЧИИ
+      </div>`;
+    div.style.opacity = "0.75";
+    div.style.cursor = "not-allowed";
+  } 
+  else if (item.hit) {
+    badges += `<div style="position:absolute;top:8px;left:8px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;z-index:10;">ХИТ</div>`;
   }
   if (item.new) {
-    badges += `<div style="position:absolute;top:32px;left:8px;background:var(--dark);color:#fff;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;">NEW</div>`;
+    badges += `<div style="position:absolute;top:32px;left:8px;background:var(--dark);color:#fff;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;z-index:10;">NEW</div>`;
   }
   if (item.preorder) {
     badges += `<div style="position:absolute;top:56px;left:8px;background:#c0392b;color:#fff;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;">ПРЕДЗАКАЗ</div>`;
@@ -2314,18 +2324,21 @@ function createProductCard(item) {
       document.getElementById("aromaBoxBack").style.display = "flex";
     };
   } else {
-    const metaContent = item.gender || '';
+  const metaContent = item.gender || '';
 
-    div.innerHTML = `
-      <div class="img" style="background-image:url('${item.img}')"></div>
-      ${badges}
-      <div class="info">
-  <div class="name">${item.name}</div>
-  <div class="meta">${metaContent}</div>
-  ${getCardPriceHTML(item)}
-</div>
-    `;
-    div.onclick = () => openModal(item);
+  div.innerHTML = `
+    <div class="img" style="background-image:url('${item.img}')"></div>
+    ${badges}
+    <div class="info">
+      <div class="name">${item.name}</div>
+      <div class="meta">${metaContent}</div>
+      ${getCardPriceHTML(item)}
+    </div>
+  `;
+
+  if (!item.outOfStock) {
+      div.onclick = () => openModal(item);
+    }
   }
 
   return div;
@@ -2451,6 +2464,10 @@ function renderCatalog() {
   results.forEach(item => grid.appendChild(createProductCard(item)));
 }
 function openModal(item){
+if (item.outOfStock) {
+    alert("Этот аромат временно отсутствует.");
+    return;
+  }
   currentItem = item;
   selectedML = null;
   selectedQualityIndex = null;
@@ -3550,6 +3567,7 @@ function renderAromaGrid() {
     item.prices && 
     item.prices[7] &&
     !item.weekDiscount &&                    // ←←← главное изменение
+!item.outOfStock &&
     ((item.priceCategory === 550 && show550) || (item.priceCategory === 800 && show800))
   ).forEach(item => {
     const card = document.createElement('div');
@@ -3597,21 +3615,26 @@ function renderAromaGrid() {
     cards.forEach(card => card.style.display = '');
   }
 }
-
 function addAromaToBox(item) {
-  if (selectedAromas.length >= 3) return alert('Максимум 3 аромата!');
+  if (item.outOfStock) {
+    alert("Этот аромат не в наличии и не может быть добавлен в AromaBox.");
+    return;
+  }
+  if (selectedAromas.length >= 3) {
+    alert('Максимум 3 аромата!');
+    return;
+  }
+
   const comp = formats[selectedFormat].composition;
   const category = item.priceCategory;
   const currentCount = selectedAromas.filter(a => a.priceCategory === category).length;
-  if (currentCount >= comp[category]) return alert(`Максимум ${comp[category]} ароматов по ${category} ₽!`);
-  selectedAromas.push(item);
-  renderSelectedSlots();
-  updateHints();
-  renderAromaGrid();
-}
 
-function removeAroma(index) {
-  selectedAromas.splice(index, 1);
+  if (currentCount >= comp[category]) {
+    alert(`Максимум ${comp[category]} ароматов по ${category} ₽!`);
+    return;
+  }
+
+  selectedAromas.push(item);
   renderSelectedSlots();
   updateHints();
   renderAromaGrid();
