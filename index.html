@@ -2693,17 +2693,23 @@ function renderFavs() {
   let favs = readFavs();
   const updatedFavs = [];
 
-  favs.forEach(cartItem => {
-    const catalogItem = catalog.find(c => c.name === cartItem.name);
-    
-    let finalPrice = cartItem.price;
-    let originalPrice = null;
-    let discountLabel = null;
+favs.forEach(cartItem => {
+  const catalogItem = catalog.find(c => c.name === cartItem.name);
+  
+  let finalPrice = cartItem.price;
+  let originalPrice = null;
+  let discountLabel = null;
 
-    if (catalogItem) {
+  if (catalogItem) {
+    // === ДОБАВЛЕНО: проверка наборов ===
+    if (catalogItem.nabory && catalogItem.prices && catalogItem.prices.fixed) {
+      finalPrice = catalogItem.prices.fixed;
+    } 
+    // ==================================
+    else {
       const mlNum = parseInt(cartItem.ml || "7") || 7;
       
-      let basePrice = catalogItem.prices?.[mlNum] 
+      let basePrice = catalogItem.prices?.[mlNum]
         ? (Array.isArray(catalogItem.prices[mlNum]) ? catalogItem.prices[mlNum][0] : catalogItem.prices[mlNum])
         : catalogItem.priceCategory || 550;
 
@@ -2717,14 +2723,15 @@ function renderFavs() {
         }
       }
     }
+  }
 
-    updatedFavs.push({
-      ...cartItem,
-      price: finalPrice,
-      originalPrice: originalPrice,
-      discountLabel: discountLabel
-    });
+  updatedFavs.push({
+    ...cartItem,
+    price: finalPrice,
+    originalPrice: originalPrice,
+    discountLabel: discountLabel
   });
+});
 
   // Сохраняем обновлённые цены
   writeFavs(updatedFavs);
