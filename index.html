@@ -3029,7 +3029,8 @@ function calculateTotal() {
     "babays":    { percent: 10, text: "Скидка BABAYS 10%" },
     "staff":     { percent: 15, text: "Скидка сотрудника 15%" },
     "сотрудник": { percent: 15, text: "Скидка сотрудника 15%" },
-    "black":     { percent: 5,  text: "Скидка black 5%" }
+      "black":     { percent: 5,  text: "Скидка black 5%" },
+  "na001":     { percent: 10, text: "Скидка 10%" }
     // Добавляй новые промокоды сюда
   };
 
@@ -3093,14 +3094,18 @@ sendOrder.onclick = () => {
     return acc;
   }, 0);
 
-  if (promo === "staff" || promo === "сотрудник") {
-    discount = Math.round(discountBase * 0.15);
-    discountText = discount > 0 ? `🎟 Скидка сотрудника 15%: −${discount} ₽\n` : "";
-  } else if (promo === "babays") {
-    discount = Math.round(discountBase * 0.1);
-    discountText = discount > 0 ? `🎟 Скидка (BABAYS): −${discount} ₽\n` : "";
-  }
+ if (promo === "staff" || promo === "сотрудник") {
+  discount = Math.round(discountBase * 0.15);
+  discountText = discount > 0 ? `🎟 Скидка сотрудника 15%: −${discount} ₽\n` : "";
 
+} else if (promo === "babays") {
+  discount = Math.round(discountBase * 0.1);
+  discountText = discount > 0 ? `🎟 Скидка (BABAYS): −${discount} ₽\n` : "";
+
+} else if (promo === "na001") {
+  discount = Math.round(discountBase * 0.1);
+  discountText = discount > 0 ? `🎟 Промокод (10%): −${discount} ₽\n` : "";
+}
   const final = sum - discount;
 
   let orderList = '';
